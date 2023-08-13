@@ -45,5 +45,23 @@ To learn more about Fastapi, take a look at the following resources:
 - [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
 - [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
 
+## Why use Create FastAPI App?
 
-You can check out the [create-fastapi-app GitHub repository](https://github.com/allient/create-fastapi-app) - your feedback and contributions are welcome ❤️!
+`create-fastapi-app` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
+
+### Interactive Experience
+
+Running `pip install create-fastapi-app@latest` (with no arguments) launches an interactive experience that guides you through the process of setting up your project. This interactive approach simplifies the initial configuration and gets you started quickly.
+
+### Zero Dependencies
+
+`create-fastapi-app` has been designed to be lightweight and efficient. It requires zero external dependencies, ensuring that your project remains unburdened by unnecessary packages.
+
+### Reliability and Maintenance
+
+`create-fastapi-app` is officially maintained by the [Allient development team](https://www.allient.io/). It is well-tested and aligns with best practices, ensuring that it functions as expected and remains up to date with FastAPI's releases.
+
+By choosing `create-fastapi-app`, you streamline your initial project setup, leverage reliable patterns, and enjoy the convenience of a tool tailored for FastAPI development.
+
+
+We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem. You can check out the [create-fastapi-app GitHub repository](https://github.com/allient/create-fastapi-app) - your feedback and contributions are welcome!
