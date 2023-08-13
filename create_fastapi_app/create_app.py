@@ -1,11 +1,11 @@
 import os
-from create_fastapi_app.templates import install_template
+from create_fastapi_app.templates import ITemplate, install_template
 from create_fastapi_app.helpers.git import try_git_init
-from create_fastapi_app.helpers.install import install_python_packages
+from create_fastapi_app.helpers.install import add_configuration_to_pyproject, create_poetry_project, install_dependencies
 from rich import print
 
 
-def create_app(app_path: str, is_packages_installation_required: bool):
+def create_app(app_path: str, template: ITemplate = ITemplate.basic):
     root = os.path.abspath(app_path)
     app_name = os.path.basename(root)
     # Create the directory if it doesn't exist
@@ -14,18 +14,11 @@ def create_app(app_path: str, is_packages_installation_required: bool):
 
     # Change the current working directory to the specified root
     os.chdir(root)
-    install_template(app_name, root)
+    has_pyproject = install_template(root, template, app_name)
+    
 
     if try_git_init(root):
         print("Initialized a git repository.")
-
-    pyproject_path = os.path.join(root, "backend/app", "pyproject.toml")
-    has_pyproject = os.path.exists(pyproject_path)
-
-    poetry_path = os.path.join(root, "backend/app")
-    if has_pyproject and is_packages_installation_required:
-        print("Installing packages. This might take a couple of minutes.")
-        install_python_packages(poetry_path)
 
     # Compare paths and assign cdpath
     original_directory: str = os.getcwd()

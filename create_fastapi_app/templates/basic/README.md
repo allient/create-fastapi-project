@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FastAPI Project with `create-fastapi-app`
+
+This is a FastAPI project initialized using [`create-fastapi-app`](https://github.com/allient/create-fastapi-app), designed to provide a quick start for building APIs with [FastAPI](https://fastapi.tiangolo.com/).
 
 ## Getting Started
 
-First, run the development server:
+The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
+
+First, make sure you have all packages installed:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+make install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run the server:
+```bash
+# Run locally without docker
+make run-app
+# or
+# Run locally with docker in dev mode and force build
+make run-dev-build
+# or
+# Run locally with docker in dev mode
+make run-dev-build
+# or
+# Run locally with docker in prod mode
+make run-prod
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the result.
+
+You can start editing the server by modifying `app/main.py`.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about Fastapi, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Fastapi Documentation](https://fastapi.tiangolo.com/).
+- [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async).
+- [full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql).
+- [sqlmodel-tutorial](https://sqlmodel.tiangolo.com/tutorial/fastapi/).
+- [asyncer-tutorial](https://asyncer.tiangolo.com/tutorial/).
+- [fastapi-pagination](https://github.com/uriyyo/fastapi-pagination).
+- [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
+- [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can check out the [create-fastapi-app GitHub repository](https://github.com/allient/create-fastapi-app) - your feedback and contributions are welcome ❤️!

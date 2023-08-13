@@ -6,6 +6,7 @@ from rich import print
 from questionary import Validator, ValidationError
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from create_fastapi_app.create_app import create_app
+from create_fastapi_app.templates import ITemplate
 
 app = typer.Typer()
 
@@ -23,24 +24,47 @@ class ProjectNameValidator(Validator):
 
 
 @app.command()
-def create_project(
+def create_project():
+    """
+    This create a fastapi project.
+    """
     project_name: str = questionary.text(
         "What is your project named?",
         validate=ProjectNameValidator,
         default="my_app",
-    ).ask(),
-    # athentication_integration: str = questionary.select("Choose the authentication service", choices=["default", questionary.Choice("Cognito", disabled=disabled_message)]).ask(),
-    is_packages_installation_required: bool = questionary.confirm(
-        "Would you like to install poetry packages?", default=False
-    ).ask(),
-    # relationship_database: str = questionary.select("Choose a relationship database", choices=["PostgreSQL", questionary.Choice("SQLite", disabled=disabled_message), questionary.Choice("MySQL", disabled=disabled_message)]).ask(),
-    # third: str = questionary.checkbox('Select toppings', choices=["Cheese", "Tomato", "Pineapple"]).ask()
-):
-    """
-    This create a fastapi project.
-    """
+    ).ask()
+    template_type: str = questionary.select(
+        "Choose a template type", choices=[ITemplate.basic, questionary.Choice(ITemplate.full, disabled=disabled_message)]
+    ).ask()
+    if template_type != ITemplate.basic:
+        athentication_integration: str = questionary.select(
+            "Choose the authentication service",
+            choices=[
+                "default",
+                questionary.Choice("cognito", disabled=disabled_message),
+            ],
+        ).ask()
+        relationship_database: str = questionary.select(
+            "Choose a relationship database",
+            choices=[
+                "PostgreSQL",
+                questionary.Choice("SQLite", disabled=disabled_message),
+                questionary.Choice("MySQL", disabled=disabled_message),
+            ],
+        ).ask()
+        third: str = (
+            questionary.checkbox(
+                "Select toppings", choices=["Cheese", "Tomato", "Pineapple"]
+            )
+            .skip_if(project_name != "", default=[])
+            .ask()
+        )
+
+    # is_packages_installation_required: bool = questionary.confirm(
+    #     "Would you like to install poetry packages?", default=False
+    # ).ask()
     questionary.print(f"Hello World 🦄, {project_name}", style="bold italic fg:darkred")
-    confirmation = questionary.confirm(
+    confirmation: bool = questionary.confirm(
         f"Are you sure you want to create the project '{project_name}'?"
     ).ask()
     if not confirmation:
@@ -79,7 +103,7 @@ def create_project(
             print("It is likely you do not have write permissions for this folder.")
             raise typer.Abort()
 
-        create_app(resolved_project_path, is_packages_installation_required)
+        create_app(resolved_project_path, template=template_type)
 
 
 if __name__ == "__main__":
