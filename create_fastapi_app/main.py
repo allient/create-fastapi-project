@@ -40,14 +40,14 @@ def create_project():
         "Choose a template", choices=[ITemplate.basic, questionary.Choice(ITemplate.full, disabled=disabled_message)]
     ).ask()
     if template_type != ITemplate.basic:
-        athentication_integration: str = questionary.select(
+        questionary.select(
             "Choose the authentication service",
             choices=[
                 "default",
                 questionary.Choice("cognito", disabled=disabled_message),
             ],
         ).ask()
-        relationship_database: str = questionary.select(
+        questionary.select(
             "Choose a relationship database",
             choices=[
                 "PostgreSQL",
@@ -55,7 +55,7 @@ def create_project():
                 questionary.Choice("MySQL", disabled=disabled_message),
             ],
         ).ask()
-        third: str = (
+        (
             questionary.checkbox(
                 "Select toppings", choices=["Cheese", "Tomato", "Pineapple"]
             )
@@ -66,7 +66,7 @@ def create_project():
     # is_packages_installation_required: bool = questionary.confirm(
     #     "Would you like to install poetry packages?", default=False
     # ).ask()
-    
+
     message = f"You are going to create a project named '{project_name}' using the '{template_type}' template."
     styled_message = console.render_str(f"[bold italic fg=dark_red]🐍 {message}[/]")
     panel = Panel(styled_message, title="Project Initialization")

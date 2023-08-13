@@ -17,7 +17,7 @@ def create_app(app_path: str, template: ITemplate = ITemplate.basic):
     # Change the current working directory to the specified root
     os.chdir(root)
     has_pyproject = install_template(root, template, app_name)
-    
+
 
     if try_git_init(root):
         print("Initialized a git repository.")

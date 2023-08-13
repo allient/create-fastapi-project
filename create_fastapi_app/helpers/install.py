@@ -2,8 +2,6 @@ import subprocess
 import os
 from rich import print
 import toml
-import subprocess
-
 
 def create_poetry_project(
     root: str,
@@ -124,7 +122,7 @@ def add_configuration_to_pyproject(
     }
 
     pyproject_path = os.path.join(root, "pyproject.toml")
-    
+
     pyproject = {}
     pyproject.update(config)
 
