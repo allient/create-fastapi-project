@@ -47,6 +47,7 @@ create-fastapi-app = "create_fastapi_app.main:app"
 python = "^3.10"
 typer = {extras = ["all"], version = "^0.9.0"}
 questionary = "^2.0.0"
+toml = "^0.10.2"
 
 
 [tool.poetry.group.dev.dependencies]

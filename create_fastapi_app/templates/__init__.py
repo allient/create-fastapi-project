@@ -11,7 +11,6 @@ def install_template(app_name: str, root: str):
 
     eslint = False
     # Define the files and subdirectories to copy
-    copy_source: list[str] = ["**"]
     ignore: list[str] = []
     if not eslint:
         ignore.append("eslintrc.json")
@@ -27,4 +26,4 @@ def install_template(app_name: str, root: str):
         dirs_exist_ok=True,
     )
 
-    print("template_path", template_path)
+

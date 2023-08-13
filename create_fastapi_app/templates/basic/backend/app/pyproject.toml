@@ -2,7 +2,7 @@
 name = "app"
 version = "0.1.0"
 description = ""
-authors = ["jonra1993 <jon_ra@hotmail.es>"]
+authors = ["username <email@example.com>"]
 
 [tool.black]
 line-length = 88
