@@ -1,6 +1,6 @@
-# FastAPI Project with `fastapi-create-app`
+# FastAPI Project with `new-fastapi-app`
 
-This is a FastAPI project initialized using [`fastapi-create-app`](https://github.com/allient/fastapi-create-app), designed to provide a quick start for building APIs with [FastAPI](https://fastapi.tiangolo.com/).
+This is a FastAPI project initialized using [`new-fastapi-app`](https://github.com/allient/new-fastapi-app), designed to provide a quick start for building APIs with [FastAPI](https://fastapi.tiangolo.com/).
 
 ## Getting Started
 
@@ -47,21 +47,21 @@ To learn more about Fastapi, take a look at the following resources:
 
 ## Why use Create FastAPI App?
 
-`fastapi-create-app` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
+`new-fastapi-app` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
 
 ### Interactive Experience
 
-Running `pip install fastapi-create-app@latest` (with no arguments) launches an interactive experience that guides you through the process of setting up your project. This interactive approach simplifies the initial configuration and gets you started quickly.
+Running `pip install new-fastapi-app@latest` (with no arguments) launches an interactive experience that guides you through the process of setting up your project. This interactive approach simplifies the initial configuration and gets you started quickly.
 
 ### Zero Dependencies
 
-`fastapi-create-app` has been designed to be lightweight and efficient. It requires zero external dependencies, ensuring that your project remains unburdened by unnecessary packages.
+`new-fastapi-app` has been designed to be lightweight and efficient. It requires zero external dependencies, ensuring that your project remains unburdened by unnecessary packages.
 
 ### Reliability and Maintenance
 
-`fastapi-create-app` is officially maintained by the [Allient development team](https://www.allient.io/). It is well-tested and aligns with best practices, ensuring that it functions as expected and remains up to date with FastAPI's releases.
+`new-fastapi-app` is officially maintained by the [Allient development team](https://www.allient.io/). It is well-tested and aligns with best practices, ensuring that it functions as expected and remains up to date with FastAPI's releases.
 
-By choosing `fastapi-create-app`, you streamline your initial project setup, leverage reliable patterns, and enjoy the convenience of a tool tailored for FastAPI development.
+By choosing `new-fastapi-app`, you streamline your initial project setup, leverage reliable patterns, and enjoy the convenience of a tool tailored for FastAPI development.
 
 
-We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem. You can check out the [fastapi-create-app GitHub repository](https://github.com/allient/fastapi-create-app) - your feedback and contributions are welcome!
+We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem. You can check out the [new-fastapi-app GitHub repository](https://github.com/allient/new-fastapi-app) - your feedback and contributions are welcome!

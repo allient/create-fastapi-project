@@ -1,6 +1,6 @@
 import os
-from fastapi_create_app.templates import ITemplate, install_template
-from fastapi_create_app.helpers.git import try_git_init
+from new_fastapi_app.templates import ITemplate, install_template
+from new_fastapi_app.helpers.git import try_git_init
 from rich import print
 from rich.panel import Panel
 from rich.console import Console

@@ -2,7 +2,7 @@ import os
 import shutil
 from enum import Enum
 from dotenv import dotenv_values
-from fastapi_create_app.helpers.install import add_configuration_to_pyproject, install_dependencies
+from new_fastapi_app.helpers.install import add_configuration_to_pyproject, install_dependencies
 
 class ITemplate(str, Enum):
     basic = "basic"
