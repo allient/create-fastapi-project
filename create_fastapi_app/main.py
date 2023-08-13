@@ -4,9 +4,9 @@ import typer
 import time
 import questionary
 from rich import print
-from questionary import Validator, ValidationError, prompt
+from questionary import Validator, ValidationError
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from create_fastapi_app.templates import install_template
+from create_fastapi_app.create_app import create_app
 
 app = typer.Typer()
 
@@ -20,20 +20,6 @@ class ProjectNameValidator(Validator):
                 message="Project name should start with a letter or underscore and consist of letters, numbers, or underscores. For example: my_app",
                 cursor_position=len(document.text),
             )
-
-
-def create_app(app_path: str):
-    root = os.path.abspath(app_path)
-    app_name = os.path.basename(root)
-    # Create the directory if it doesn't exist
-    os.makedirs(root, exist_ok=True)
-    print(f"Creating a new Fastapi app in [bold green]{root}[/bold green].")
-
-    # Change the current working directory to the specified root
-    os.chdir(root)
-    install_template(app_name, root)
-    
-
 
 
 @app.command()
@@ -53,7 +39,7 @@ def create_project(
     """
     questionary.print(f"Hello World 🦄, {project_name}", style="bold italic fg:darkred")
     confirmation = questionary.confirm(
-        "Are you sure you want to create the project it?"
+        f"Are you sure you want to create the project '{project_name}'?"
     ).ask()
     if not confirmation:
         print("Not created")

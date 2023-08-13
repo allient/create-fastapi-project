@@ -134,4 +134,6 @@ sonarqube/extensions
 sonarqube/data
 sonarqube/logs
 
+my_app
+
 .terraform
