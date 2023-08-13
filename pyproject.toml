@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "create-fastapi-app"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["jonra1993 <jvargas@allient.io>"]
 readme = "README.md"
