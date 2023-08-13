@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "create-fastapi-app"
+version = "0.1.0"
+description = ""
+authors = ["jonra1993 <jvargas@allient.io>"]
+readme = "README.md"
+packages = [{include = "create_fastapi_app"}]
+
+[tool.poetry.scripts]
+create-fastapi-app = "create_fastapi_app.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = {extras = ["all"], version = "^0.9.0"}
+questionary = "^2.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
