@@ -41,10 +41,11 @@ def install_template(root: str, template: ITemplate, app_name: str):
     has_pyproject = add_configuration_to_pyproject(poetry_path)
 
     if has_pyproject:
-        print("Installing packages. This might take a couple of minutes.")
         dependencies = ["fastapi[all]", "fastapi-pagination[sqlalchemy]@^0.12.7", "asyncer@^0.0.2", "httpx@^0.24.1"]
-        dev_dependencies = ["pytest@^5.2", "mypy@^1.5.0", "ruff@^0.0.284", "black@^23.7.0"]        
+        dev_dependencies = ["pytest@^5.2", "mypy@^1.5.0", "ruff@^0.0.284", "black@^23.7.0"]
+        print("- Installing main packages. This might take a couple of minutes.")
         install_dependencies(poetry_path, dependencies)
+        print("- Installing development packages. This might take a couple of minutes.")
         install_dependencies(poetry_path, dev_dependencies, dev=True)
         # Set your dynamic environment variables
         
