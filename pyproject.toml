@@ -6,6 +6,40 @@ authors = ["jonra1993 <jvargas@allient.io>"]
 readme = "README.md"
 packages = [{include = "create_fastapi_app"}]
 
+[tool.black]
+line-length = 88
+target-version = [ "py310", "py311" ]
+exclude = "((.eggs | .git | .pytest_cache | build | dist))"
+
+[tool.ruff]
+line-length = 88
+exclude = [".git", "__pycache__", ".mypy_cache", ".pytest_cache", "create_fastapi_app/templates/"]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    # "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "B904",
+    "B006",    
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = ["alembic", "__pycache__"]
+
+
 [tool.poetry.scripts]
 create-fastapi-app = "create_fastapi_app.main:app"
 
@@ -14,6 +48,11 @@ python = "^3.10"
 typer = {extras = ["all"], version = "^0.9.0"}
 questionary = "^2.0.0"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+mypy = "^1.5.0"
+ruff = "^0.0.284"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,7 +1,6 @@
 import os
 import re
 import typer
-import time
 import questionary
 from rich import print
 from questionary import Validator, ValidationError
@@ -12,9 +11,10 @@ app = typer.Typer()
 
 disabled_message: str = "Unavailable at this time"
 
+
 class ProjectNameValidator(Validator):
     def validate(self, document):
-        pattern = r'^[a-zA-Z_][\w-]*$'
+        pattern = r"^[a-zA-Z_][\w-]*$"
         if not re.match(pattern, document.text):
             raise ValidationError(
                 message="Project name should start with a letter or underscore and consist of letters, numbers, or underscores. For example: my_app",
@@ -30,7 +30,9 @@ def create_project(
         default="my_app",
     ).ask(),
     # athentication_integration: str = questionary.select("Choose the authentication service", choices=["default", questionary.Choice("Cognito", disabled=disabled_message)]).ask(),
-    # sonarqube: bool = questionary.confirm("Would you like to use SonarQube?", default=False).ask(),
+    is_packages_installation_required: bool = questionary.confirm(
+        "Would you like to install poetry packages?", default=False
+    ).ask(),
     # relationship_database: str = questionary.select("Choose a relationship database", choices=["PostgreSQL", questionary.Choice("SQLite", disabled=disabled_message), questionary.Choice("MySQL", disabled=disabled_message)]).ask(),
     # third: str = questionary.checkbox('Select toppings', choices=["Cheese", "Tomato", "Pineapple"]).ask()
 ):
@@ -66,21 +68,18 @@ def create_project(
         if folder_exists and os.listdir(root):
             print("There is already a project with same name created")
             raise typer.Abort()
-        
+
         """
         Check if the directory is writable
         """
         if not os.access(os.path.dirname(root), os.W_OK):
-            print("The application path is not writable, please check folder permissions and try again.")
+            print(
+                "The application path is not writable, please check folder permissions and try again."
+            )
             print("It is likely you do not have write permissions for this folder.")
             raise typer.Abort()
 
-        create_app(resolved_project_path)
-
-        time.sleep(2)
-    print("Done!")
-
-    # Add your project generation logic here
+        create_app(resolved_project_path, is_packages_installation_required)
 
 
 if __name__ == "__main__":
