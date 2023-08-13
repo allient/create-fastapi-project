@@ -5,7 +5,7 @@ We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem so we 
 To get started, use the following command:
 
 ```bash
-pip install create-fastapi-project@latest
+pip install create-fastapi-project
 create-fastapi-project
 ```
 
