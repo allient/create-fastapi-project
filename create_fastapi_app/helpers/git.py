@@ -2,6 +2,7 @@ import subprocess
 import os
 import shutil
 
+
 def is_in_git_repository() -> bool:
     try:
         subprocess.run(
