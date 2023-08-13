@@ -1,12 +1,12 @@
 # Create FastAPI App
 
-We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem so we decided to make easier to get started with [FastAPI](https://fastapi.tiangolo.com/) projects. By using the `create-fastapi-app` CLI tool, you can quickly start building a new FastAPI application with a basic folder structure, with everything set up for you.
+We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem so we decided to make easier to get started with [FastAPI](https://fastapi.tiangolo.com/) projects. By using the `create-fastapi-server` CLI tool, you can quickly start building a new FastAPI application with a basic folder structure, with everything set up for you.
 
 To get started, use the following command:
 
 ```bash
-pip install create-fastapi-app@latest
-create-fastapi-app
+pip install create-fastapi-server@latest
+create-fastapi-server
 ```
 
 After you that you are going to see an interactive screen like this:
@@ -56,22 +56,22 @@ To learn more about Fastapi, take a look at the following resources:
 
 ## Why use Create FastAPI App?
 
-`create-fastapi-app` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
+`create-fastapi-server` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
 
 ### Interactive Experience
 
-Running `create-fastapi-app` (with no arguments) launches an interactive experience that guides you through the process of setting up your project. This interactive approach simplifies the initial configuration and gets you started quickly.
+Running `create-fastapi-server` (with no arguments) launches an interactive experience that guides you through the process of setting up your project. This interactive approach simplifies the initial configuration and gets you started quickly.
 
 ### Zero Dependencies
 
-`create-fastapi-app` has been designed to be lightweight and efficient. It requires zero external dependencies, ensuring that your project remains unburdened by unnecessary packages.
+`create-fastapi-server` has been designed to be lightweight and efficient. It requires zero external dependencies, ensuring that your project remains unburdened by unnecessary packages.
 
 ### Reliability and Maintenance
 
-`create-fastapi-app` is maintained by the [Allient development team](https://www.allient.io/). Our team is composed by a experienced professionals specializing in FastAPI projects and NLP. If you need assistance or support for your project, please don't hesitate to get in touch with us at [info@allient.io](mailto:info@allient.io) or schedule a meeting with us [here](https://calendly.com/jonathanvargas).
+`create-fastapi-server` is maintained by the [Allient development team](https://www.allient.io/). Our team is composed by a experienced professionals specializing in FastAPI projects and NLP. If you need assistance or support for your project, please don't hesitate to get in touch with us at [info@allient.io](mailto:info@allient.io) or schedule a meeting with us [here](https://calendly.com/jonathanvargas).
 
 
-You can check out the [create-fastapi-app GitHub repository](https://github.com/allient/create-fastapi-app) - your feedback and contributions are welcome ❤️!
+You can check out the [create-fastapi-server GitHub repository](https://github.com/allient/create-fastapi-server) - your feedback and contributions are welcome ❤️!
 
 
 ## License

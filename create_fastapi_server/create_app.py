@@ -1,6 +1,6 @@
 import os
-from create_fastapi_app.templates import ITemplate, install_template
-from create_fastapi_app.helpers.git import try_git_init
+from create_fastapi_server.templates import ITemplate, install_template
+from create_fastapi_server.helpers.git import try_git_init
 from rich import print
 from rich.panel import Panel
 from rich.console import Console
