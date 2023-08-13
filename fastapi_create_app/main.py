@@ -5,8 +5,8 @@ import questionary
 from rich import print
 from questionary import Validator, ValidationError
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from new_fastapi_app.create_app import create_app
-from new_fastapi_app.templates import ITemplate
+from create_fastapi_project.create_app import create_app
+from create_fastapi_project.templates import ITemplate
 from rich.panel import Panel
 from rich.console import Console
 

@@ -1,19 +1,19 @@
 [tool.poetry]
-name = "new-fastapi-app"
+name = "create-fastapi-project"
 version = "0.1.1"
 description = ""
 authors = ["jonra1993 <jvargas@allient.io>"]
 readme = "README.md"
-packages = [{include = "new_fastapi_app"}]
+packages = [{include = "create_fastapi_project"}]
 
 [tool.black]
 line-length = 88
 target-version = [ "py310", "py311" ]
-exclude = "((.eggs | .git | .pytest_cache | build | dist | new_fastapi_app/templates/))"
+exclude = "((.eggs | .git | .pytest_cache | build | dist | create_fastapi_project/templates/))"
 
 [tool.ruff]
 line-length = 88
-exclude = [".git", "__pycache__", ".mypy_cache", ".pytest_cache", "new_fastapi_app/templates/"]
+exclude = [".git", "__pycache__", ".mypy_cache", ".pytest_cache", "create_fastapi_project/templates/"]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -41,7 +41,7 @@ exclude = ["alembic", "__pycache__"]
 
 
 [tool.poetry.scripts]
-new-fastapi-app = "new_fastapi_app.main:app"
+create-fastapi-project = "create_fastapi_project.main:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"

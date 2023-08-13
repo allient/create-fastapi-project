@@ -6,7 +6,7 @@ import toml
 def create_poetry_project(
     root: str,
     author: str = "Your Name <your@email.com>",
-    description: str = "A sample fastapi project created with new-fastapi-app",
+    description: str = "A sample fastapi project created with create-fastapi-project",
 ) -> bool:
     # Construct the command and arguments
     args = [
@@ -75,7 +75,7 @@ def install_dependencies(root: str, dependencies: list[str], dev: bool = False):
 def add_configuration_to_pyproject(
     root: str,
     author: str = "Your Name <your@email.com>",
-    description: str = "A sample fastapi project created with new-fastapi-app",
+    description: str = "A sample fastapi project created with create-fastapi-project",
 ) -> bool:
     config = {
         "tool": {
