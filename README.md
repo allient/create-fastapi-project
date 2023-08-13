@@ -10,7 +10,9 @@ create-fastapi-app
 ```
 
 After you that you are going to see an interactive screen like this:
-
+<p align="center">
+  <img src="static/terminal.png" align="center"/>
+</p>
 
 ## Getting Started
 

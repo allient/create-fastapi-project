@@ -7,7 +7,10 @@ from questionary import Validator, ValidationError
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from create_fastapi_app.create_app import create_app
 from create_fastapi_app.templates import ITemplate
+from rich.panel import Panel
+from rich.console import Console
 
+console = Console()
 app = typer.Typer()
 
 disabled_message: str = "Unavailable at this time"
@@ -34,7 +37,7 @@ def create_project():
         default="my_app",
     ).ask()
     template_type: str = questionary.select(
-        "Choose a template type", choices=[ITemplate.basic, questionary.Choice(ITemplate.full, disabled=disabled_message)]
+        "Choose a template", choices=[ITemplate.basic, questionary.Choice(ITemplate.full, disabled=disabled_message)]
     ).ask()
     if template_type != ITemplate.basic:
         athentication_integration: str = questionary.select(
@@ -63,9 +66,14 @@ def create_project():
     # is_packages_installation_required: bool = questionary.confirm(
     #     "Would you like to install poetry packages?", default=False
     # ).ask()
-    questionary.print(f"Hello World 🦄, {project_name}", style="bold italic fg:darkred")
+    
+    message = f"You are going to create a project named '{project_name}' using the '{template_type}' template."
+    styled_message = console.render_str(f"[bold italic fg=dark_red]🐍 {message}[/]")
+    panel = Panel(styled_message, title="Project Initialization")
+    console.print(panel)
+
     confirmation: bool = questionary.confirm(
-        f"Are you sure you want to create the project '{project_name}'?"
+        "Are you sure you want to continue?"
     ).ask()
     if not confirmation:
         print("Not created")

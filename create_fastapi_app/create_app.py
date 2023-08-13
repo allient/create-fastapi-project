@@ -1,9 +1,11 @@
 import os
 from create_fastapi_app.templates import ITemplate, install_template
 from create_fastapi_app.helpers.git import try_git_init
-from create_fastapi_app.helpers.install import add_configuration_to_pyproject, create_poetry_project, install_dependencies
 from rich import print
+from rich.panel import Panel
+from rich.console import Console
 
+console = Console()
 
 def create_app(app_path: str, template: ITemplate = ITemplate.basic):
     root = os.path.abspath(app_path)
@@ -26,15 +28,24 @@ def create_app(app_path: str, template: ITemplate = ITemplate.basic):
     if os.path.join(original_directory, app_name) == app_path:
         cdpath = app_name
 
-    print(f"[bold green]Success![/bold green] Created {app_name} at {app_path}.")
-
     if has_pyproject:
-        print("Inside that directory, you can run several commands:\n")
-        # print(f"[cyan]  make {'yarn' if use_yarn else 'run'} dev[/cyan]")
-        print("    Starts the development server.\n")
-        print("[cyan]  make run-dev-build[/cyan]")
-        print("    Builds the app for production.\n")
-        print("[cyan]  make run-prod[/cyan]")
-        print("    Runs the built app in production mode.\n")
-        print("We suggest that you begin by typing:\n")
-        print(f"[cyan]  cd {cdpath}[/cyan]")
+        success_message = f"[bold green]🚀 Success![/bold green] Created {app_name} at {app_path}."
+        instructions = f"""
+        [bold cyan]Inside that directory, you can run several commands:[/bold cyan]
+
+        • [cyan]make install[/cyan] - Make sure packages are installed.
+        • [cyan]make run-dev-build[/cyan] or [cyan]make run-app[/cyan] - Starts the development server.
+        • [cyan]make run-prod[/cyan] - Builds and runs the app in production mode.
+
+        We suggest that you begin by typing:
+        [cyan]cd {cdpath}[/cyan]
+        """
+
+        styled_success_message = console.render_str(success_message)
+        styled_instructions = console.render_str(instructions)
+
+        success_panel = Panel(styled_success_message, title="🎉 Project Created", style="bold green")
+        instructions_panel = Panel(styled_instructions, title="🛠️ Get Started", style="bold cyan")
+
+        print(success_panel)
+        print(instructions_panel)
