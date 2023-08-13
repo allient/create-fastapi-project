@@ -45,7 +45,7 @@ To learn more about Fastapi, take a look at the following resources:
 - [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
 - [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
 
-## Why use Create FastAPI App?
+## Why use Create FastAPI Project?
 
 `create-fastapi-project` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
 

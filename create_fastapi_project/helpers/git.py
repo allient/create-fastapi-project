@@ -61,7 +61,7 @@ def try_git_init(root: str) -> bool:
             ["git", "add", "-A"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
         subprocess.run(
-            ["git", "commit", "-m", "Initial commit from Create Fastapi App"],
+            ["git", "commit", "-m", "Initial commit from Create Fastapi Project"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )

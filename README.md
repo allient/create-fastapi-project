@@ -1,4 +1,4 @@
-# Create FastAPI App
+# Create FastAPI Project
 
 We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem so we decided to make easier to get started with [FastAPI](https://fastapi.tiangolo.com/) projects. By using the `create-fastapi-project` CLI tool, you can quickly start building a new FastAPI application with a basic folder structure, with everything set up for you.
 
@@ -54,7 +54,7 @@ To learn more about Fastapi, take a look at the following resources:
 - [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
 - [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
 
-## Why use Create FastAPI App?
+## Why use Create FastAPI Project?
 
 `create-fastapi-project` provides a streamlined way to kickstart your FastAPI projects. Here are some compelling reasons to choose it for your project setup:
 
