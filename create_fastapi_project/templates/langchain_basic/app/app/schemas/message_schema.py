@@ -1,4 +1,5 @@
 from pydantic import BaseModel, validator
+from app.utils.uuid6 import uuid7
 
 
 class IUserMessage(BaseModel):
