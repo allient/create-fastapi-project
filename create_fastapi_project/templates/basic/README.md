@@ -6,26 +6,31 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 
 The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
 
+
+- Run the server (Recommended using docker):
+
+```bash
+# Run locally with docker in dev mode and force build
+make run-dev-build
+# or
+# Run locally with docker in dev mode
+make run-dev
+# or
+# Run locally with docker in prod mode (Autorelod disabled)
+make run-prod
+```
+
+
+- Run the server without docker:
+
 First, make sure you have all packages installed:
 
 ```bash
 make install
 ```
 
-
-Run the server:
 ```bash
-# Run locally without docker
 make run-app
-# or
-# Run locally with docker in dev mode and force build
-make run-dev-build
-# or
-# Run locally with docker in dev mode
-make run-dev-build
-# or
-# Run locally with docker in prod mode
-make run-prod
 ```
 
 Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the result.
