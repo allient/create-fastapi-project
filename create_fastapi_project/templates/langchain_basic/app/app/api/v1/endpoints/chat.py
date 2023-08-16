@@ -2,6 +2,8 @@ from app.schemas.message_schema import (
     IChatResponse,
     IUserMessage,
 )
+from app.utils.adaptive_cards.cards import create_adaptive_card
+from app.utils.callback import CustomAsyncCallbackHandler
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
 from app.core.config import settings
@@ -29,20 +31,22 @@ async def websocket_endpoint(websocket: WebSocket):
     while True:
         data = await websocket.receive_json()
         user_message = data["message"]
+        user_message_card = create_adaptive_card(user_message)
 
         resp = IChatResponse(
             sender="you",
-            message=user_message,
+            message=user_message_card.to_dict(),
             type="stream",
             message_id=str(uuid7()),
             id=str(uuid7()),
         )
         await websocket.send_json(resp.dict())
 
-        start_resp = IChatResponse(
-            sender="bot", message="", type="start", message_id="", id=""
-        )
-        await websocket.send_json(start_resp.dict())
+        # message_id: str = str(uuid7())
+        # start_resp = IChatResponse(
+        #     sender="bot", message={}, type="start", message_id=message_id, id=""
+        # )
+        # await websocket.send_json(start_resp.dict())
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -57,18 +61,22 @@ async def websocket_endpoint(websocket: WebSocket):
                 ),  # Where the human input will injectd
             ]
         )
-
-        llm = ChatOpenAI()
+        message_id: str = str(uuid7())
+        custom_handler = CustomAsyncCallbackHandler(
+            websocket=websocket, message_id=message_id
+        )
+        llm = ChatOpenAI(streaming=True, callbacks=[custom_handler])
 
         chat_llm_chain = LLMChain(
             llm=llm,
             prompt=prompt,
             verbose=True,
             memory=memory,
-            callbacks=[],
         )
 
-        response = chat_llm_chain.predict(human_input=user_message)
+        response = await chat_llm_chain.apredict(
+            human_input=user_message,
+        )
         print("#" * 100)
         print(response)
         print("#" * 100)

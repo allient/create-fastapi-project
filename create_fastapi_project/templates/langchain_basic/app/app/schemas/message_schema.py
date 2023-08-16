@@ -1,5 +1,6 @@
 from pydantic import BaseModel, validator
 from app.utils.uuid6 import uuid7
+from typing import Any
 
 
 class IUserMessage(BaseModel):
@@ -14,8 +15,9 @@ class IChatResponse(BaseModel):
     id: str
     message_id: str
     sender: str
-    message: str
+    message: Any
     type: str
+    suggested_responses: list[str] = []
 
     @validator("id", "message_id", pre=True, allow_reuse=True)
     def check_ids(cls, v):

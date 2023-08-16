@@ -1,17 +1,18 @@
+from app.schemas.message_schema import IChatResponse
+from app.utils.adaptive_cards.cards import create_adaptive_card, create_image_card
 from langchain.callbacks.base import AsyncCallbackHandler
 from app.utils.uuid6 import uuid7
 from fastapi import WebSocket
 from uuid import UUID
 from typing import Any
+from langchain.schema.agent import AgentFinish
+from langchain.schema.output import LLMResult
 
 
-class CustomFinalStreamingStdOutCallbackHandler(AsyncCallbackHandler):
-    """Callback handler for streaming in agents.
-    Only works with agents using LLMs that support streaming.
+DEFAULT_ANSWER_PREFIX_TOKENS = ["Final", " Answer", ":"]
 
-    Only the final output of the agent will be streamed.
-    """
 
+class CustomAsyncCallbackHandler(AsyncCallbackHandler):
     def append_to_last_tokens(self, token: str) -> None:
         self.last_tokens.append(token)
         self.last_tokens_stripped.append(token.strip())
@@ -71,107 +72,60 @@ class CustomFinalStreamingStdOutCallbackHandler(AsyncCallbackHandler):
         self.strip_tokens = strip_tokens
         self.stream_prefix = stream_prefix
         self.answer_reached = False
+        print("#" * 100)
+        print("callback inited")
+        print("#" * 100)
 
     async def on_llm_start(
         self, serialized: dict[str, Any], prompts: list[str], **kwargs: Any
     ) -> None:
         """Run when LLM starts running."""
-        if self.started == False:
-            self.started = True
-            resp = IChatResponse(
-                type=1,
-                target="update",
-                arguments=[
-                    IArgument(
-                        request_id="",
-                        messages=[
-                            IMessage(
-                                text=self.text,
-                                author="bot",
-                                message_id=self.message_id,
-                                adaptive_cards=[self.loading_card.to_dict()],
-                                request_id="",
-                            )
-                        ],
-                    )
-                ],
-            )
-            await self.websocket.send_json(resp.dict())
 
-    async def on_agent_finish(
-        self,
-        finish: AgentFinish,
-        *,
-        run_id: UUID,
-        parent_run_id: UUID | None = None,
-        **kwargs: Any,
-    ) -> Any:
-        """Run on agent end."""
-        print("#" * 100)
-        print("finish")
-        print(finish.return_values["output"])
-        print("#" * 100)
-
-        message: str = (
-            self.text
-            if self.text != ""
-            # else "😕 Lo siento no he podido hallar lo que buscabas"
-            else finish.return_values["output"]
-        )
-        self.adaptive_card = create_adaptive_card(message)
-        resp = create_chat_response(
-            message_id=self.message_id, adaptive_cards=[self.adaptive_card.to_dict()]
+        resp = IChatResponse(
+            id=str(uuid7()),
+            message_id=self.message_id,
+            sender="bot",
+            message=self.loading_card.to_dict(),
+            type="stream",
         )
         await self.websocket.send_json(resp.dict())
-
-        suggested_responses = await get_suggestions_questions(message)
-        if len(suggested_responses) > 0:
-            self.adaptive_card = create_adaptive_card(
-                answer=message,
-            )
-            medium_resp = create_chat_response(
-                message_id=self.message_id,
-                adaptive_cards=[self.adaptive_card.to_dict()],
-                suggested_responses=suggested_responses,
-            )
-
-            await self.websocket.send_json(medium_resp.dict())
-
-        # Reset values
-        self.text = ""
-        self.answer_reached = False
-        self.started = False
 
     async def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
         """Run on new LLM token. Only available when streaming is enabled."""
         # Remember the last n tokens, where n = len(answer_prefix_tokens)
         self.append_to_last_tokens(token)
 
-        # Check if the last n tokens match the answer_prefix_tokens list ...
-        if self.check_if_answer_reached():
-            self.answer_reached = True
-            return
+        self.text += f"{token}"
+        self.adaptive_card = create_adaptive_card(self.text)
+        resp = IChatResponse(
+            # id=str(uuid7()),
+            id="",
+            message_id=self.message_id,
+            sender="bot",
+            message=self.adaptive_card.to_dict(),
+            type="stream",
+        )
+        await self.websocket.send_json(resp.dict())
 
-        # ... if yes, then print tokens from now on
-        if self.answer_reached:
-            self.text += f"{token}"
-            self.adaptive_card = create_adaptive_card(self.text)
-            resp = IChatResponse(
-                type=1,
-                target="update",
-                arguments=[
-                    IArgument(
-                        request_id="",
-                        messages=[
-                            IMessage(
-                                text="",
-                                author="bot",
-                                message_id=self.message_id,
-                                adaptive_cards=[self.adaptive_card.to_dict()],
-                                request_id="",
-                            )
-                        ],
-                    )
-                ],
-            )
-            await self.websocket.send_json(resp.dict())
+    async def on_llm_end(
+        self,
+        response: LLMResult,
+        *,
+        run_id: UUID,
+        parent_run_id: UUID | None = None,
+        tags: list[str] | None = None,
+        **kwargs: Any,
+    ) -> None:
+        """Run when LLM ends running."""
+        print("#" * 100)
+        print("response")
+        print(response)
+        print("#" * 100)
+        resp = IChatResponse(
+            id="",
+            message_id=self.message_id,
+            sender="bot",
+            message=self.adaptive_card.to_dict(),
+            type="end",
+        )
+        await self.websocket.send_json(resp.dict())
