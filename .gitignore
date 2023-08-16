@@ -137,3 +137,5 @@ sonarqube/logs
 backend
 
 .terraform
+
+my_app

@@ -87,7 +87,7 @@ def add_configuration_to_pyproject(
                 "readme": "README.md",
                 "packages": [{"include": "app"}],
                 "dependencies": {
-                    "python": ">3.9,<3.12"
+                    "python": ">=3.10,<3.12"
                 }
             },
             "black": {
