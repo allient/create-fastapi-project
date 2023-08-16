@@ -6,6 +6,7 @@ from create_fastapi_project.helpers.install import add_configuration_to_pyprojec
 
 class ITemplate(str, Enum):
     basic = "basic"
+    langchain_basic = "langchain_basic"
     full = "full"    
 
 def install_template(root: str, template: ITemplate, app_name: str):
@@ -42,6 +43,9 @@ def install_template(root: str, template: ITemplate, app_name: str):
 
     if has_pyproject:
         dependencies = ["fastapi[all]", "fastapi-pagination[sqlalchemy]@^0.12.7", "asyncer@^0.0.2", "httpx@^0.24.1"]
+        if template == ITemplate.langchain_basic:
+            langchain_dependencies = ["langchain@^0.0.265", "openai@^0.27.8", "adaptive-cards-py@^0.0.7"]
+            dependencies.extend(langchain_dependencies)
         dev_dependencies = ["pytest@^5.2", "mypy@^1.5.0", "ruff@^0.0.284", "black@^23.7.0"]
         print("- Installing main packages. This might take a couple of minutes.")
         install_dependencies(poetry_path, dependencies)

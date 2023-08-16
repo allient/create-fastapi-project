@@ -37,9 +37,9 @@ def create_project():
         default="backend",
     ).ask()
     template_type: str = questionary.select(
-        "Choose a template", choices=[ITemplate.basic, questionary.Choice(ITemplate.full, disabled=disabled_message)]
+        "Choose a template", choices=[ITemplate.basic, ITemplate.langchain_basic ,questionary.Choice(ITemplate.full, disabled=disabled_message)]
     ).ask()
-    if template_type != ITemplate.basic:
+    if template_type == ITemplate.full:
         questionary.select(
             "Choose the authentication service",
             choices=[
