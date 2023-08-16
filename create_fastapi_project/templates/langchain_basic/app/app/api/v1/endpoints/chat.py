@@ -25,6 +25,11 @@ router = APIRouter()
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 
+@router.get("/chat")
+async def home():
+    return "Hello World"
+
+
 @router.websocket("")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()

@@ -1,8 +1,10 @@
 from fastapi import (
     FastAPI,
 )
+from fastapi.responses import HTMLResponse
 from app.api.v1.api import api_router as api_router_v1
 from app.core.config import settings
+from app.templates.chat import chat_html
 from contextlib import asynccontextmanager
 
 
@@ -13,7 +15,6 @@ async def lifespan(app: FastAPI):
     yield
     # shutdown
     print("shutdown fastapi")
-    
 
 
 # Core Application Instance
@@ -32,6 +33,11 @@ async def root():
     """
     # if oso.is_allowed(user, "read", message):
     return {"message": "Hello World"}
+
+
+@app.get("/chat", response_class=HTMLResponse)
+async def chat():
+    return chat_html
 
 
 # Add Routers
