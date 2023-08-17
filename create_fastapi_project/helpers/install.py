@@ -69,7 +69,8 @@ def install_dependencies(root: str, dependencies: list[str], dev: bool = False):
     if process.returncode != 0:
         raise Exception(f"Error installing dependencies: {stderr.decode('utf-8')}")
 
-    print(stdout.decode("utf-8"))
+    decoded_stdout = stdout.decode("utf-8", errors="replace")
+    print(decoded_stdout)
 
 
 def add_configuration_to_pyproject(
