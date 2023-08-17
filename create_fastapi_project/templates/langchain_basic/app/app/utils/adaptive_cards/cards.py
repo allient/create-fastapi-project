@@ -17,6 +17,10 @@ def custom_media(anwser):
 
     if url_image_search:
         url_image = url_search.group()
+        if url_image.endswith(")"):
+            url_image = url_image[:-1]
+        if url_image.endswith(")."):
+            url_image = url_image[:-2]
         media = Image(url=url_image)
         return ICreateMediaAC(media_object=media, media_type="image", url=url_image)
 

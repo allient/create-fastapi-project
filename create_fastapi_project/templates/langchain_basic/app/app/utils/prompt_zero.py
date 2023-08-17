@@ -20,7 +20,7 @@ Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final answer
 Final Answer: the final answer to the original input question"""
-SUFFIX = """When answering, you MUST speak in the following language: spanish.
+SUFFIX = """When answering, if you find link the formart is the next [title](link).
 
 Question: {input}
 Thought:{agent_scratchpad}"""

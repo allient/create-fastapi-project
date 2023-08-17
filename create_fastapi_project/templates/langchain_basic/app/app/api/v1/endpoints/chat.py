@@ -3,8 +3,11 @@ from app.schemas.message_schema import (
     IUserMessage,
 )
 from app.utils.adaptive_cards.cards import create_adaptive_card
-from app.utils.callback import CustomAsyncCallbackHandler, CustomFinalStreamingStdOutCallbackHandler
-from app.utils.tools import GeneralKnowledgeTool
+from app.utils.callback import (
+    CustomAsyncCallbackHandler,
+    CustomFinalStreamingStdOutCallbackHandler,
+)
+from app.utils.tools import GeneralKnowledgeTool, PokemonSearchTool
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
 from app.core.config import settings
@@ -25,7 +28,6 @@ from app.utils.prompt_zero import zero_agent_prompt
 router = APIRouter()
 
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
 
 
 @router.websocket("")
@@ -85,10 +87,8 @@ async def websocket_endpoint(websocket: WebSocket):
         print("#" * 100)
 
 
-
 @router.websocket("/1")
 async def websocket_endpoint(websocket: WebSocket):
-
     await websocket.accept()
 
     while True:
@@ -105,7 +105,7 @@ async def websocket_endpoint(websocket: WebSocket):
         )
 
         await websocket.send_json(resp.dict())
- 
+
         message_id: str = str(uuid7())
         custom_handler = CustomFinalStreamingStdOutCallbackHandler(
             websocket, message_id=message_id
@@ -113,6 +113,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
         tools = [
             GeneralKnowledgeTool(),
+            PokemonSearchTool(),
         ]
 
         llm = ChatOpenAI(
@@ -140,4 +141,3 @@ async def websocket_endpoint(websocket: WebSocket):
         )
 
         await agent_executor.arun(input=user_message, callbacks=[custom_handler])
-
