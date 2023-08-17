@@ -6,7 +6,7 @@ authors = ["Leonel Rivas <leonelrivas.rl@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 fastapi-pagination = {version = "^0.12.7", extras = ["sqlalchemy"]}
 asyncer = "^0.0.2"
 httpx = "^0.24.1"
