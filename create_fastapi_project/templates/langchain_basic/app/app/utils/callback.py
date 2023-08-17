@@ -82,11 +82,11 @@ class CustomAsyncCallbackHandler(AsyncCallbackHandler):
         """Run when LLM starts running."""
 
         resp = IChatResponse(
-            id=str(uuid7()),
+            id="",
             message_id=self.message_id,
             sender="bot",
             message=self.loading_card.to_dict(),
-            type="stream",
+            type="start",
         )
         await self.websocket.send_json(resp.dict())
 

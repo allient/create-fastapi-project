@@ -41,7 +41,7 @@ async def websocket_endpoint(websocket: WebSocket):
         resp = IChatResponse(
             sender="you",
             message=user_message_card.to_dict(),
-            type="stream",
+            type="start",
             message_id=str(uuid7()),
             id=str(uuid7()),
         )
