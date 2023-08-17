@@ -103,7 +103,7 @@ async def websocket_endpoint(websocket: WebSocket):
             message_id=str(uuid7()),
             id=str(uuid7()),
         )
-        
+
         await websocket.send_json(resp.dict())
  
         message_id: str = str(uuid7())
@@ -134,10 +134,10 @@ async def websocket_endpoint(websocket: WebSocket):
         agent_executor = AgentExecutor.from_agent_and_tools(
             agent=agent,
             tools=tools,
-            verbose=False,
+            verbose=True,
             handle_parsing_errors=True,
             memory=memory,
         )
 
-        await agent_executor.arun(input=user_message.message, callbacks=[custom_handler])
+        await agent_executor.arun(input=user_message, callbacks=[custom_handler])
 
