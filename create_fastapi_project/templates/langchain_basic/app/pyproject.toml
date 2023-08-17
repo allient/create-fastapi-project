@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["Leonel Rivas <leonelrivas.rl@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi-pagination = {version = "^0.12.7", extras = ["sqlalchemy"]}
+asyncer = "^0.0.2"
+httpx = "^0.24.1"
+langchain = "^0.0.265"
+fastapi = {version = "0.99.1", extras = ["all"]}
+openai = "^0.27.8"
+adaptive-cards-py = "^0.0.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
