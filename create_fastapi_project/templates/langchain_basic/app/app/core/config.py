@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = f"/api/{API_VERSION}"
     OPENAI_API_KEY: str
     UNSPLASH_API_KEY: str
+    SERP_API_KEY: str
 
     class Config:
         case_sensitive = True
