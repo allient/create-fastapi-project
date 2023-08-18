@@ -7,7 +7,12 @@ from app.utils.callback import (
     CustomAsyncCallbackHandler,
     CustomFinalStreamingStdOutCallbackHandler,
 )
-from app.utils.tools import GeneralKnowledgeTool, ImageSearchTool, PokemonSearchTool
+from app.utils.tools import (
+    GeneralKnowledgeTool,
+    ImageSearchTool,
+    PokemonSearchTool,
+    YoutubeSearchTool,
+)
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
 from app.core.config import settings
@@ -115,6 +120,7 @@ async def websocket_endpoint(websocket: WebSocket):
             GeneralKnowledgeTool(),
             PokemonSearchTool(),
             ImageSearchTool(),
+            YoutubeSearchTool(),
         ]
 
         llm = ChatOpenAI(

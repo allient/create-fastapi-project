@@ -3,6 +3,8 @@ from langchain.tools import BaseTool
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 import httpx
+from serpapi import GoogleSearch
+
 
 from app.core.config import settings
 
@@ -12,15 +14,10 @@ unsplash_api_url = f"https://api.unsplash.com/search/photos?client_id={settings.
 
 class GeneralKnowledgeTool(BaseTool):
     name = "Search"
-    description = (
-        # "Useful when needs to recommend general knowledge and mantains a conversation"
-        # "Useful when needs general answers and mantains a conversation"
-        "useful for when you need to answer questions about current events"
-    )
+    description = "useful for when you need to answer questions about current events"
 
     def __init__(self):
         super().__init__()
-        # self.return_direct = True
 
     def _run(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool."""
@@ -28,7 +25,6 @@ class GeneralKnowledgeTool(BaseTool):
 
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool asynchronously."""
-        # create a async client with httpx and get request
         chat = ChatOpenAI()
         response = await chat.agenerate([[HumanMessage(content=query)]])
         message = response.generations[0][0].text
@@ -38,11 +34,9 @@ class GeneralKnowledgeTool(BaseTool):
 class PokemonSearchTool(BaseTool):
     name = "search_pokemon"
     description = " Useful when asked to answer information about a pokemon"
-    # return_direct = True
 
     def __init__(self):
         super().__init__()
-        # self.return_direct = True
 
     def _run(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool."""
@@ -54,13 +48,11 @@ class PokemonSearchTool(BaseTool):
 
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool asynchronously."""
-        # create a async client with httpx and get request
         async with httpx.AsyncClient() as client:
             pokemon_url = pokemon_api_url + query.lower()
-            print("#" * 100)
-            print(pokemon_url)
-            print("#" * 100)
             response = await client.get(pokemon_url)
+            if response.status_code == 404:
+                return "Pokemon not found"
             body = response.json()
             pokemon_number = body["id"]
             pokemon_name = body["name"]
@@ -77,7 +69,6 @@ class PokemonSearchTool(BaseTool):
             for ability in abilities:
                 abilities_list_names.append(ability["ability"]["name"])
             abilities_names = ", ".join(abilities_list_names)
-            # create a card with the information
             return f"""{pokemon_image} \n
 {pokemon_name} - #{pokemon_number} \n
 Abilities: {abilities_names} \n
@@ -95,20 +86,17 @@ class ImageSearchTool(BaseTool):
 
     def __init__(self):
         super().__init__()
-        # self.return_direct = True
 
     def _run(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool."""
-        response = httpx.get(unsplash_api_url + query.lower())
-        body = response.json()
-        pokemon_number = body["id"]
-        pokemon_name = body["name"]
-        return f"{pokemon_name} - #{pokemon_number} "
+        pass
 
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool asynchronously."""
-        # create a async client with httpx and get request
         async with httpx.AsyncClient() as client:
+            if settings.UNSPLASH_API_KEY == "":
+                return "You need to set a UNSPLASH_API_KEY"
+
             unsplash_url = unsplash_api_url + query.lower()
             response = await client.get(unsplash_url)
             body = response.json()
@@ -120,5 +108,39 @@ class ImageSearchTool(BaseTool):
             image_list_string = "\n".join(
                 [f"{i+1}. [Image {i+1}]({url})" for i, url in enumerate(images_urls)]
             )
-
             return image_list_string
+
+
+class YoutubeSearchTool(BaseTool):
+    name = "search_videos"
+    description = " Useful when asked to answer information about find videos"
+    return_direct = True
+
+    def __init__(self):
+        super().__init__()
+
+    def _run(self, query: str, run_manager: Optional[Any] = None) -> str:
+        """Use the tool."""
+        pass
+
+    async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
+        """Use the tool asynchronously."""
+        async with httpx.AsyncClient() as client:
+            if not settings.SERP_API_KEY or settings.SERP_API_KEY == "":
+                return "You need to set a SERP_API_KEY"
+
+            params = {
+                "engine": "youtube",
+                "search_query": query,
+                "api_key": settings.SERP_API_KEY,
+            }
+            search = GoogleSearch(params)
+            results = search.get_dict()
+            videos = results["video_results"]
+            video_list_string = "\n".join(
+                [
+                    f"{i+1}. [{video['title']}]({video['link']})"
+                    for i, video in enumerate(videos)
+                ]
+            )
+            return video_list_string
