@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     API_VERSION: str = "v1"
     API_V1_STR: str = f"/api/{API_VERSION}"
     OPENAI_API_KEY: str
+    UNSPLASH_API_KEY: str
 
     class Config:
         case_sensitive = True
