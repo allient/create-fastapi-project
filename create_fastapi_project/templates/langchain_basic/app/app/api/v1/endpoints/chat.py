@@ -4,7 +4,7 @@ from app.schemas.message_schema import (
 )
 from app.utils.adaptive_cards.cards import create_adaptive_card
 from app.utils.callback import CustomAsyncCallbackHandler, CustomFinalStreamingStdOutCallbackHandler
-from app.utils.tools import GeneralKnowledgeTool
+from app.utils.tools import GeneralKnowledgeTool, GeneralWeatherTool
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
 from app.core.config import settings
@@ -90,7 +90,6 @@ async def websocket_endpoint(websocket: WebSocket):
 async def websocket_endpoint(websocket: WebSocket):
 
     await websocket.accept()
-
     while True:
         data = await websocket.receive_json()
         user_message = data["message"]
@@ -105,7 +104,6 @@ async def websocket_endpoint(websocket: WebSocket):
         )
 
         await websocket.send_json(resp.dict())
- 
         message_id: str = str(uuid7())
         custom_handler = CustomFinalStreamingStdOutCallbackHandler(
             websocket, message_id=message_id
@@ -113,6 +111,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
         tools = [
             GeneralKnowledgeTool(),
+            GeneralWeatherTool(),
         ]
 
         llm = ChatOpenAI(

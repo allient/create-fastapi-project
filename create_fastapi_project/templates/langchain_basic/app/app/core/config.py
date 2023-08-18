@@ -1,5 +1,5 @@
 import os
-from pydantic import BaseSettings
+from pydantic import BaseSettings, AnyHttpUrl
 from enum import Enum
 
 
@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     API_VERSION: str = "v1"
     API_V1_STR: str = f"/api/{API_VERSION}"
     OPENAI_API_KEY: str
-
+    WHEATER_URL: AnyHttpUrl
     class Config:
         case_sensitive = True
         env_file = os.path.expanduser("~/.env")
