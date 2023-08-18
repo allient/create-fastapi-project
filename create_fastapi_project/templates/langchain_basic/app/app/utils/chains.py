@@ -18,7 +18,7 @@ async def get_suggestions_questions(input: str) -> list[str]:
     )
     prompt = PromptTemplate(
         input_variables=["input"],
-        template="Create three good suggestions questions about this topic of: {input}. Return the suggestions in spanish language like a list.",
+        template="Create three good suggestions questions about this topic of: {input}. Return the suggestions like a list.",
     )
     is_farewell_topic_chain = LLMChain(llm=llm, prompt=prompt_is_farewell_topic_chain)
     is_farewell_topic_response = await is_farewell_topic_chain.arun(input)
@@ -28,5 +28,6 @@ async def get_suggestions_questions(input: str) -> list[str]:
         chain = LLMChain(llm=llm, prompt=prompt)
         response_chain = await chain.arun(input)
         suggested_responses = re.findall(r"\d+\.\s(.*?\?)", response_chain)
+        suggested_responses = suggested_responses[:3]
 
     return suggested_responses

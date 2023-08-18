@@ -4,7 +4,10 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 import httpx
 
+from app.core.config import settings
+
 pokemon_api_url = "https://pokeapi.co/api/v2/pokemon/"
+unsplash_api_url = f"https://api.unsplash.com/search/photos?client_id={settings.UNSPLASH_API_KEY}&query="
 
 
 class GeneralKnowledgeTool(BaseTool):
@@ -45,9 +48,9 @@ class PokemonSearchTool(BaseTool):
         """Use the tool."""
         response = httpx.get(pokemon_api_url + query)
         body = response.json()
-        data = body.get("data", {})
-        affirmation = data.get("text", "Hoy va a ser un gran día")
-        return affirmation
+        pokemon_number = body["id"]
+        pokemon_name = body["name"]
+        return f"{pokemon_name} - #{pokemon_number} "
 
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
         """Use the tool asynchronously."""
@@ -59,13 +62,13 @@ class PokemonSearchTool(BaseTool):
             print("#" * 100)
             response = await client.get(pokemon_url)
             body = response.json()
-            pokemon_number = body.get("id", 1)
-            pokemon_name = body.get("name", "pikachu")
+            pokemon_number = body["id"]
+            pokemon_name = body["name"]
             pokemon_image = body.get("sprites", {}).get(
                 "front_default",
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
             )
-            pokemon_types = body.get("types", [])
+            pokemon_types = body["types"]
             pokemon_type = pokemon_types[0].get("type", {}).get("name", "electric")
             abilities = body.get("abilities", [])
             abilities_list_names = []
@@ -83,11 +86,39 @@ Height: {height} m \n
 Weight: {weight} kg \n
 Sprite: {pokemon_image} \n
 """
-            return pokemon_image
-            return {
-                "pokemon_number": pokemon_number,
-                "pokemon_name": pokemon_name,
-                "pokemon_image": pokemon_image,
-                "pokemon_type": pokemon_type,
-                "abilities": abilities,
-            }
+
+
+class ImageSearchTool(BaseTool):
+    name = "search_image"
+    description = " Useful when asked to answer information about find images URL"
+    return_direct = True
+
+    def __init__(self):
+        super().__init__()
+        # self.return_direct = True
+
+    def _run(self, query: str, run_manager: Optional[Any] = None) -> str:
+        """Use the tool."""
+        response = httpx.get(unsplash_api_url + query.lower())
+        body = response.json()
+        pokemon_number = body["id"]
+        pokemon_name = body["name"]
+        return f"{pokemon_name} - #{pokemon_number} "
+
+    async def _arun(self, query: str, run_manager: Optional[Any] = None) -> str:
+        """Use the tool asynchronously."""
+        # create a async client with httpx and get request
+        async with httpx.AsyncClient() as client:
+            unsplash_url = unsplash_api_url + query.lower()
+            response = await client.get(unsplash_url)
+            body = response.json()
+            results = body["results"]
+            images_urls = []
+            for result in results:
+                image_url = result["urls"]["small"]
+                images_urls.append(image_url)
+            image_list_string = "\n".join(
+                [f"{i+1}. [Image {i+1}]({url})" for i, url in enumerate(images_urls)]
+            )
+
+            return image_list_string
