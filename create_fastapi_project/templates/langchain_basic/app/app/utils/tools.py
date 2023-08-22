@@ -159,7 +159,6 @@ class GeneralWeatherTool(BaseTool):
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> dict:
         """Use the tool asynchronously."""
         async with httpx.AsyncClient() as client:
-            print("query", query)
             response = await client.get(f"{settings.WHEATER_URL}/{query}?format=j1")
             weather = response.json()
             temperature = weather["current_condition"][0]

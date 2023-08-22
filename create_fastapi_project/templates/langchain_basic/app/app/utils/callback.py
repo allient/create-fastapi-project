@@ -73,9 +73,6 @@ class CustomAsyncCallbackHandler(AsyncCallbackHandler):
         self.strip_tokens = strip_tokens
         self.stream_prefix = stream_prefix
         self.answer_reached = False
-        print("#" * 100)
-        print("callback inited")
-        print("#" * 100)
 
     async def on_llm_start(
         self, serialized: dict[str, Any], prompts: list[str], **kwargs: Any
@@ -118,10 +115,6 @@ class CustomAsyncCallbackHandler(AsyncCallbackHandler):
         **kwargs: Any,
     ) -> None:
         """Run when LLM ends running."""
-        print("#" * 100)
-        print("response")
-        print(response)
-        print("#" * 100)
         resp = IChatResponse(
             id="",
             message_id=self.message_id,
@@ -223,11 +216,6 @@ class CustomFinalStreamingStdOutCallbackHandler(AsyncCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         """Run on agent end."""
-        print("#" * 100)
-        print("finish")
-        print(finish.return_values["output"])
-        print("#" * 100)
-
         message: str = (
             self.text
             if self.text != ""

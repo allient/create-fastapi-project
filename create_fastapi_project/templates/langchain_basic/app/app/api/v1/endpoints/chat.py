@@ -16,9 +16,6 @@ from app.utils.tools import (
 )
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
-from app.core.config import settings
-from app.schemas.response_schema import IGetResponseBase, create_response
-
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage
 from langchain.prompts import (
@@ -53,12 +50,6 @@ async def websocket_endpoint(websocket: WebSocket):
         )
         await websocket.send_json(resp.dict())
 
-        # message_id: str = str(uuid7())
-        # start_resp = IChatResponse(
-        #     sender="bot", message={}, type="start", message_id=message_id, id=""
-        # )
-        # await websocket.send_json(start_resp.dict())
-
         prompt = ChatPromptTemplate.from_messages(
             [
                 SystemMessage(
@@ -81,16 +72,13 @@ async def websocket_endpoint(websocket: WebSocket):
         chat_llm_chain = LLMChain(
             llm=llm,
             prompt=prompt,
-            verbose=True,
+            verbose=False,
             memory=memory,
         )
 
-        response = await chat_llm_chain.apredict(
+        await chat_llm_chain.apredict(
             human_input=user_message,
         )
-        print("#" * 100)
-        print(response)
-        print("#" * 100)
 
 
 @router.websocket("/1")
@@ -142,7 +130,7 @@ async def websocket_endpoint(websocket: WebSocket):
         agent_executor = AgentExecutor.from_agent_and_tools(
             agent=agent,
             tools=tools,
-            verbose=True,
+            verbose=False,
             handle_parsing_errors=True,
             memory=memory,
         )
