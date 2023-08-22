@@ -160,7 +160,10 @@ class GeneralWeatherTool(BaseTool):
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> dict:
         """Use the tool asynchronously."""
         async with httpx.AsyncClient() as client:
-            response = await client.get(f"{weather_api_url}/{query}?format=j1")
+            query = query.replace(" ", "+")
+            query = query.replace(",", "")
+            final_url = f"{weather_api_url}/{query}?format=j1"
+            response = await client.get(final_url)
             if response.status_code == 404:
                 return f"Could not find weather for {query}"
             weather = response.json()
