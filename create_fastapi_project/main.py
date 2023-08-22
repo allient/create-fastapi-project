@@ -36,8 +36,15 @@ def create_project():
         validate=ProjectNameValidator,
         default="backend",
     ).ask()
+    basic = ITemplate.basic.value
+    langchain_basic = ITemplate.langchain_basic.value
+    full = ITemplate.full.value
     template_type: str = questionary.select(
-        "Choose a template", choices=[ITemplate.basic, ITemplate.langchain_basic ,questionary.Choice(ITemplate.full, disabled=disabled_message)]
+        "Choose a template", choices=[
+            basic,
+            langchain_basic,
+            questionary.Choice(full, disabled=disabled_message)
+        ]
     ).ask()
     if template_type == ITemplate.full:
         questionary.select(
