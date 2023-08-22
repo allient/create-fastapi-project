@@ -1,5 +1,5 @@
 import os
-from pydantic import BaseSettings, AnyHttpUrl
+from pydantic import BaseSettings
 from enum import Enum
 
 
@@ -17,7 +17,6 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str
     UNSPLASH_API_KEY: str
     SERP_API_KEY: str
-    WHEATER_URL: AnyHttpUrl
 
     class Config:
         case_sensitive = True
