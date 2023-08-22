@@ -44,7 +44,12 @@ def install_template(root: str, template: ITemplate, app_name: str):
     if has_pyproject:
         dependencies = ["fastapi[all]", "fastapi-pagination[sqlalchemy]@^0.12.7", "asyncer@^0.0.2", "httpx@^0.24.1"]
         if template == ITemplate.langchain_basic:
-            langchain_dependencies = ["langchain@^0.0.265", "openai@^0.27.8", "adaptive-cards-py@^0.0.7"]
+            langchain_dependencies = [
+                "langchain@^0.0.265",
+                "openai@^0.27.8",
+                "adaptive-cards-py@^0.0.7",
+                "google-search-results@^2.4.2"
+            ]
             dependencies[0] = "fastapi[all]@^0.99.1"
             dependencies.extend(langchain_dependencies)
         dev_dependencies = ["pytest@^5.2", "mypy@^1.5.0", "ruff@^0.0.284", "black@^23.7.0"]
