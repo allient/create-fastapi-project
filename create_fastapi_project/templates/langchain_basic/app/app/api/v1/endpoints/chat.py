@@ -12,6 +12,7 @@ from app.utils.tools import (
     ImageSearchTool,
     PokemonSearchTool,
     YoutubeSearchTool,
+    GeneralWeatherTool,
 )
 from fastapi import APIRouter, WebSocket
 from app.utils.uuid6 import uuid7
@@ -95,7 +96,6 @@ async def websocket_endpoint(websocket: WebSocket):
 @router.websocket("/1")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-
     while True:
         data = await websocket.receive_json()
         user_message = data["message"]
@@ -110,7 +110,6 @@ async def websocket_endpoint(websocket: WebSocket):
         )
 
         await websocket.send_json(resp.dict())
-
         message_id: str = str(uuid7())
         custom_handler = CustomFinalStreamingStdOutCallbackHandler(
             websocket, message_id=message_id
@@ -121,6 +120,7 @@ async def websocket_endpoint(websocket: WebSocket):
             PokemonSearchTool(),
             ImageSearchTool(),
             YoutubeSearchTool(),
+            GeneralWeatherTool(),
         ]
 
         llm = ChatOpenAI(
