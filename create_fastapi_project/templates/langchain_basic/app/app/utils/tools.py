@@ -8,6 +8,7 @@ import httpx
 
 pokemon_api_url = "https://pokeapi.co/api/v2/pokemon/"
 unsplash_api_url = f"https://api.unsplash.com/search/photos?client_id={settings.UNSPLASH_API_KEY}&query="
+weather_api_url = "https://wttr.in"
 
 
 class GeneralKnowledgeTool(BaseTool):
@@ -159,8 +160,12 @@ class GeneralWeatherTool(BaseTool):
     async def _arun(self, query: str, run_manager: Optional[Any] = None) -> dict:
         """Use the tool asynchronously."""
         async with httpx.AsyncClient() as client:
-            print("query", query)
-            response = await client.get(f"{settings.WHEATER_URL}/{query}?format=j1")
+            query = query.replace(" ", "+")
+            query = query.replace(",", "")
+            final_url = f"{weather_api_url}/{query}?format=j1"
+            response = await client.get(final_url)
+            if response.status_code == 404:
+                return f"Could not find weather for {query}"
             weather = response.json()
             temperature = weather["current_condition"][0]
             return temperature
