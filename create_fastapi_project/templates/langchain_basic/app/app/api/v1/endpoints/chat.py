@@ -81,7 +81,7 @@ async def websocket_endpoint(websocket: WebSocket):
         )
 
 
-@router.websocket("/1")
+@router.websocket("/tools")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
