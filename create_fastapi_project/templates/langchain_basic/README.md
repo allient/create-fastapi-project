@@ -8,6 +8,7 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 
 1. Create an account on [OpenAI](https://platform.openai.com/).
 2. Get your API key from [API Keys - OpenAI](https://platform.openai.com/account/api-keys).
+3. Set your API key as an environment variable named `OPENAI_API_KEY`.
 
 ## Other API Keys (Optional if you want to use the template's custom tools)
 
@@ -16,11 +17,13 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 1. Create an account on [Unsplash](https://unsplash.com/developers).
 2. Create an app on [Unsplash Developers](https://unsplash.com/oauth/applications).
 3. Get your Access Key from [Your Applications - Unsplash Developers](https://unsplash.com/oauth/applications).
+4. Set your Access Key as an environment variable named `UNSPLASH_API_KEY`.
 
 ### SerpApi (Search Engine Results Page API)
 
 1. Create an account on [SerpApi](https://serpapi.com/).
 2. Get your API key from [API Key - SerpApi](https://serpapi.com/manage-api-key).
+3. Set your API key as an environment variable named `SERP_API_KEY`.
 
 ## Getting Started
 
