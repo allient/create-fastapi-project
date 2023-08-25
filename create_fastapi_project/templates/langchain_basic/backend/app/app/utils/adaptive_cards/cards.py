@@ -23,6 +23,7 @@ def custom_media(anwser):
         if url_image.endswith(")."):
             url_image = url_image[:-2]
         media = Image(url=url_image)
+        return None
         return ICreateMediaAC(media_object=media, media_type="image", url=url_image)
 
     regex_audio = r"\b(https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(mp3|wav|ogg)\b"
@@ -69,6 +70,7 @@ def custom_media(anwser):
                 media = Image(url=photo)
                 list_media_element.append(media)
         body_container_images = ImageSet(images=list_media_element)
+        return None
         return ICreateMediaAC(
             media_object=body_container_images, media_type="image", url=""
         )

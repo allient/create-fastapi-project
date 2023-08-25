@@ -105,7 +105,7 @@ class ImageSearchTool(BaseTool):
                 image_url = result["urls"]["small"]
                 images_urls.append(image_url)
             image_list_string = "\n".join(
-                [f"{i+1}. [Image {i+1}]({url})" for i, url in enumerate(images_urls)]
+                [f"{i+1}. ![Image {i+1}]({url})" for i, url in enumerate(images_urls)]
             )
             return image_list_string
 

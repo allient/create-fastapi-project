@@ -6,6 +6,7 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 
 The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
 
+This project uses poetry, if you don't have it installed, you can the follow the instruction in [Poetry Documentation](https://python-poetry.org/docs/#installation).
 
 - Run the server (Recommended using docker):
 
@@ -19,7 +20,6 @@ make run-dev
 # Run locally with docker in prod mode (Autorelod disabled)
 make run-prod
 ```
-
 
 - Run the server without docker:
 
@@ -67,6 +67,5 @@ Running `pip install create-fastapi-project@latest` (with no arguments) launches
 `create-fastapi-project` is officially maintained by the [Allient development team](https://www.allient.io/). It is well-tested and aligns with best practices, ensuring that it functions as expected and remains up to date with FastAPI's releases.
 
 By choosing `create-fastapi-project`, you streamline your initial project setup, leverage reliable patterns, and enjoy the convenience of a tool tailored for FastAPI development.
-
 
 We love ❤️ [FastAPI](https://fastapi.tiangolo.com/) and its ecosystem. You can check out the [create-fastapi-project GitHub repository](https://github.com/allient/create-fastapi-project) - your feedback and contributions are welcome!
