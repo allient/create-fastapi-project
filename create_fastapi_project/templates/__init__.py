@@ -33,13 +33,14 @@ def install_template(root: str, template: ITemplate, app_name: str):
     )
 
 
-    # Add pyproject.toml file and installl packages
-    app_folder: str = "app"
+    poetry_path = ""
     if template == ITemplate.full or template == ITemplate.langchain_basic:
         # TODO: CHECK PATHS IN MACOS AND WINDOWS | (os.path.join)
-        app_folder = "backend\\app"
+        poetry_path = os.path.join(root, "backend", "app")
+
+    else:
+        poetry_path = os.path.join(root, "app")
     
-    poetry_path = os.path.join(root, app_folder)
     has_pyproject = add_configuration_to_pyproject(poetry_path)
 
     if has_pyproject:
