@@ -1,0 +1,13 @@
+{
+  email custom@domain.com
+}
+
+fastapi.{$EXT_ENDPOINT1}:80, fastapi.{$LOCAL_1}:80, fastapi.{$LOCAL_2}:80, :80 {
+  reverse_proxy fastapi_server:8000
+}
+
+frontend.{$EXT_ENDPOINT1}:80, frontend.{$LOCAL_1}:80, frontend.{$LOCAL_2}:80 {
+  reverse_proxy streamlit_frontend:8501 
+}
+
+

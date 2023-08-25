@@ -29,6 +29,8 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 
 The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
 
+This project uses poetry, if you don't have it installed, you can the follow the instruction in [Poetry Documentation](https://python-poetry.org/docs/#installation).
+
 - Run the server (Recommended using docker):
 
 ```bash
