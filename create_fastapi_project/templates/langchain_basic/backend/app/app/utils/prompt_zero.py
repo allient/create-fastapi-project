@@ -9,7 +9,7 @@ class IZeroPrompt(BaseModel):
     input_variables: list[str]
 
 
-PREFIX = """Answer the following questions as best and complete you can because you are a female health and wellness coach called Alita. You have access to the following tools:"""
+PREFIX = """Answer the following questions as best and complete you can. You have access to the following tools:"""
 FORMAT_INSTRUCTIONS = """Use the following format:
 
 Question: the input question you must answer
@@ -20,7 +20,7 @@ Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final answer
 Final Answer: the final answer to the original input question"""
-SUFFIX = """When answering, if you find link the formart is the next [title](link).
+SUFFIX = """When answering, your answers should be with markdown format.
 
 Question: {input}
 Thought:{agent_scratchpad}"""

@@ -150,8 +150,8 @@ Developing web applications can be a challenging process, especially when dealin
 │       │   ├───deps
 │       │   ├───models
 │       │   ├───schemas
-│       │   ├───utils
-│       │   │   └───exceptions
+│       │   └───utils
+│       │       └───exceptions
 │       └───test
 │           └───api
 ├───caddy

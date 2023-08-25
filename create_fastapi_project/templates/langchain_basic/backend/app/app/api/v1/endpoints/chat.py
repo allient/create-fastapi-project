@@ -2,6 +2,7 @@ from app.schemas.message_schema import (
     IChatResponse,
     IUserMessage,
 )
+import logging
 from app.utils.adaptive_cards.cards import create_adaptive_card
 from app.utils.callback import (
     CustomAsyncCallbackHandler,
@@ -84,55 +85,60 @@ async def websocket_endpoint(websocket: WebSocket):
 @router.websocket("/tools")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
+
     while True:
-        data = await websocket.receive_json()
-        user_message = data["message"]
-        user_message_card = create_adaptive_card(user_message)
+        try:
+            data = await websocket.receive_json()
+            user_message = data["message"]
+            user_message_card = create_adaptive_card(user_message)
 
-        resp = IChatResponse(
-            sender="you",
-            message=user_message_card.to_dict(),
-            type="start",
-            message_id=str(uuid7()),
-            id=str(uuid7()),
-        )
+            resp = IChatResponse(
+                sender="you",
+                message=user_message_card.to_dict(),
+                type="start",
+                message_id=str(uuid7()),
+                id=str(uuid7()),
+            )
 
-        await websocket.send_json(resp.dict())
-        message_id: str = str(uuid7())
-        custom_handler = CustomFinalStreamingStdOutCallbackHandler(
-            websocket, message_id=message_id
-        )
+            await websocket.send_json(resp.dict())
+            message_id: str = str(uuid7())
+            custom_handler = CustomFinalStreamingStdOutCallbackHandler(
+                websocket, message_id=message_id
+            )
 
-        tools = [
-            GeneralKnowledgeTool(),
-            PokemonSearchTool(),
-            ImageSearchTool(),
-            YoutubeSearchTool(),
-            GeneralWeatherTool(),
-        ]
+            tools = [
+                GeneralKnowledgeTool(),
+                PokemonSearchTool(),
+                ImageSearchTool(),
+                YoutubeSearchTool(),
+                GeneralWeatherTool(),
+            ]
 
-        llm = ChatOpenAI(
-            streaming=True,
-            temperature=0,
-        )
+            llm = ChatOpenAI(
+                streaming=True,
+                temperature=0,
+            )
 
-        agent = ZeroShotAgent.from_llm_and_tools(
-            llm=llm,
-            tools=tools,
-            prefix=zero_agent_prompt.prefix,
-            suffix=zero_agent_prompt.suffix,
-            format_instructions=zero_agent_prompt.format_instructions,
-            input_variables=zero_agent_prompt.input_variables,
-        )
-        # TODO: We should use this
-        # * max_execution_time=1,
-        # early_stopping_method="generate",
-        agent_executor = AgentExecutor.from_agent_and_tools(
-            agent=agent,
-            tools=tools,
-            verbose=False,
-            handle_parsing_errors=True,
-            memory=memory,
-        )
+            agent = ZeroShotAgent.from_llm_and_tools(
+                llm=llm,
+                tools=tools,
+                prefix=zero_agent_prompt.prefix,
+                suffix=zero_agent_prompt.suffix,
+                format_instructions=zero_agent_prompt.format_instructions,
+                input_variables=zero_agent_prompt.input_variables,
+            )
+            # TODO: We should use this
+            # * max_execution_time=1,
+            # early_stopping_method="generate",
+            agent_executor = AgentExecutor.from_agent_and_tools(
+                agent=agent,
+                tools=tools,
+                verbose=False,
+                handle_parsing_errors=True,
+                memory=memory,
+            )
 
-        await agent_executor.arun(input=user_message, callbacks=[custom_handler])
+            await agent_executor.arun(input=user_message, callbacks=[custom_handler])
+        except WebSocketDisconnect:
+            logging.info("websocket disconnect")
+            break

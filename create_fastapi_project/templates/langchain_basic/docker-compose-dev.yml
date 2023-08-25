@@ -1,15 +1,49 @@
-version: '3.8'
+version: "3.8"
 
 services:
   fastapi_server:
-    build: .
+    container_name: fastapi_server
+    build: ./backend
     restart: always
     command: "sh -c 'uvicorn app.main:app --reload --workers 3 --host 0.0.0.0 --port 8000'"
     volumes:
-      - ./app:/code
+      - ./backend/app:/code
     expose:
       - 8000
     ports:
-      - 8000:8000      
+      - 8000:8000
     env_file: ".env"
 
+  streamlit_frontend:
+    container_name: streamlit_frontend
+    build: ./frontend
+    restart: always
+    # command: "sh -c 'streamlit run app.py --server.port 8501'"
+    volumes:
+      - ./frontend:/code
+    expose:
+      - 8501
+    ports:
+      - 8501:8501
+    env_file: ".env"
+
+  caddy_reverse_proxy:
+    container_name: caddy_reverse_proxy
+    image: caddy:alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - EXT_ENDPOINT1=${EXT_ENDPOINT1}
+      - LOCAL_1=${LOCAL_1}
+      - LOCAL_2=${LOCAL_2}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./static:/code/static
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

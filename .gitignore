@@ -134,7 +134,7 @@ sonarqube/extensions
 sonarqube/data
 sonarqube/logs
 
-backend
+/backend
 
 .terraform
 
