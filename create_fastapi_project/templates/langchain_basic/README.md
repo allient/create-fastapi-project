@@ -62,12 +62,10 @@ You can start editing the server by modifying `app/main.py`.
 
 ## Demo Langchain Tools
 
-This template includes some tools to help you get started with your project:
-
-- Search pokemon by name or id
-- Search weather by city name
-- Search images by keyword
-- Search videos by keyword
+- Search weather by city name ![weather-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746086/Allient/create-fastapi-project/weather-tool-demo_lgqtwu.gif)
+- Search images by keyword ![images-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746086/Allient/create-fastapi-project/search-images-demo_mkorzv.gif)
+- Search videos by keyword ![videos-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746087/Allient/create-fastapi-project/search-videos-demo_wikzn1.gif)
+- Search pokemon by name or id ![pokemon-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746086/Allient/create-fastapi-project/pokemon-tool-demo_ggsc63.gif)
 
 And also includes a agent that uses the tools to answer your questions.
 You can access the agent by opening [http://localhost:8000/chat](http://localhost:8000/chat) with your browser.
