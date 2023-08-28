@@ -13,45 +13,6 @@ After you that you are going to see an interactive screen like this:
 
 ![create-app-terminal](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746180/Allient/create-fastapi-project/demo-create-fastapi-final_fyirob.gif)
 
-## Getting Started
-
-The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
-
-After your project is created. First, make sure you have all packages installed:
-
-```bash
-make install
-```
-
-Run the server:
-
-```bash
-# Run locally without docker
-make run-app
-# or
-# Run locally with docker in dev mode and force build
-make run-dev-build
-# or
-# Run locally with docker in dev mode
-make run-dev-build
-# or
-# Run locally with docker in prod mode
-make run-prod
-```
-
-## Learn More
-
-To learn more about Fastapi, take a look at the following resources:
-
-- [Fastapi Documentation](https://fastapi.tiangolo.com/).
-- [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async).
-- [full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql).
-- [sqlmodel-tutorial](https://sqlmodel.tiangolo.com/tutorial/fastapi/).
-- [asyncer-tutorial](https://asyncer.tiangolo.com/tutorial/).
-- [fastapi-pagination](https://github.com/uriyyo/fastapi-pagination).
-- [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
-- [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
-
 ## Templates
 
 ### Basic
@@ -101,6 +62,22 @@ app
     │       ├───adaptive_cards
     │       └───exceptions
     └───test
+```
+
+## ENV Variables
+
+```bash
+PROJECT_NAME=
+OPENAI_API_KEY=
+UNSPLASH_API_KEY= # Optional
+SERP_API_KEY= # Optional
+
+#############################################
+# Caddy variables
+#############################################
+EXT_ENDPOINT1=127.0.0.1
+LOCAL_1=localhost
+LOCAL_2=127.0.0.1
 ```
 
 ## Tools
@@ -181,6 +158,45 @@ Developing web applications can be a challenging process, especially when dealin
 - [Pytest](https://docs.pytest.org/en/stable/) - A framework that makes it easy to write small tests, yet scales to support complex functional testing for applications and libraries.
 
 </details>
+
+## Getting Started
+
+The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
+
+After your project is created. First, make sure you have all packages installed:
+
+```bash
+make install
+```
+
+Run the server:
+
+```bash
+# Run locally without docker
+make run-app
+# or
+# Run locally with docker in dev mode and force build
+make run-dev-build
+# or
+# Run locally with docker in dev mode
+make run-dev-build
+# or
+# Run locally with docker in prod mode
+make run-prod
+```
+
+## Learn More
+
+To learn more about Fastapi, take a look at the following resources:
+
+- [Fastapi Documentation](https://fastapi.tiangolo.com/).
+- [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async).
+- [full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql).
+- [sqlmodel-tutorial](https://sqlmodel.tiangolo.com/tutorial/fastapi/).
+- [asyncer-tutorial](https://asyncer.tiangolo.com/tutorial/).
+- [fastapi-pagination](https://github.com/uriyyo/fastapi-pagination).
+- [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
+- [awesome-fastapi](https://github.com/mjhea0/awesome-fastapi).
 
 ## Why use Create FastAPI Project?
 
