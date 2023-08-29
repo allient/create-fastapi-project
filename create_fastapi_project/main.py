@@ -40,11 +40,8 @@ def create_project():
     langchain_basic = ITemplate.langchain_basic.value
     full = ITemplate.full.value
     template_type: str = questionary.select(
-        "Choose a template", choices=[
-            basic,
-            langchain_basic,
-            questionary.Choice(full, disabled=disabled_message)
-        ]
+        "Choose a template",
+        choices=[basic, langchain_basic, full],
     ).ask()
     if template_type == ITemplate.full:
         questionary.select(
@@ -79,9 +76,7 @@ def create_project():
     panel = Panel(styled_message, title="Project Initialization")
     console.print(panel)
 
-    confirmation: bool = questionary.confirm(
-        "Are you sure you want to continue?"
-    ).ask()
+    confirmation: bool = questionary.confirm("Are you sure you want to continue?").ask()
     if not confirmation:
         print("Not created")
         raise typer.Abort()

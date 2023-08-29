@@ -21,6 +21,10 @@ async def retrieve_bot_response(text):
                     response = await asyncio.wait_for(websocket.recv(), timeout=20)
                     response = json.loads(response)
 
+                    if "error" in response:
+                        stream_data = response["error"]
+                        break
+
                     if response["sender"] == "bot":
                         stream_data = (
                             response["message"]["body"][0]["items"][0]["text"]

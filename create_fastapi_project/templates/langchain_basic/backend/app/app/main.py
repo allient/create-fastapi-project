@@ -1,6 +1,4 @@
-from fastapi import (
-    FastAPI,
-)
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from app.api.v1.api import api_router as api_router_v1
 from app.core.config import settings
@@ -37,6 +35,11 @@ async def root():
 
 @app.get("/chat", response_class=HTMLResponse)
 async def chat():
+    if not settings.OPENAI_API_KEY.startswith("sk-"):
+        raise HTTPException(
+            status_code=500, detail="OPENAI_API_KEY is not set or not start with sk-"
+        )
+
     return chat_html
 
 

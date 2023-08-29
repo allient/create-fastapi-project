@@ -1,6 +1,6 @@
+from app.core.config import settings
 from app.schemas.message_schema import (
     IChatResponse,
-    IUserMessage,
 )
 import logging
 from app.utils.adaptive_cards.cards import create_adaptive_card
@@ -15,7 +15,7 @@ from app.utils.tools import (
     YoutubeSearchTool,
     GeneralWeatherTool,
 )
-from fastapi import APIRouter, WebSocket
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from app.utils.uuid6 import uuid7
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage
@@ -37,6 +37,10 @@ memory = ConversationBufferMemory(memory_key="chat_history", return_messages=Tru
 @router.websocket("")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
+    if not settings.OPENAI_API_KEY.startswith("sk-"):
+        await websocket.send_json({"error": "OPENAI_API_KEY is not set"})
+        return
+
     while True:
         data = await websocket.receive_json()
         user_message = data["message"]
@@ -85,6 +89,10 @@ async def websocket_endpoint(websocket: WebSocket):
 @router.websocket("/tools")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
+
+    if not settings.OPENAI_API_KEY.startswith("sk-"):
+        await websocket.send_json({"error": "OPENAI_API_KEY is not set"})
+        return
 
     while True:
         try:

@@ -1,24 +1,21 @@
-# app/Dockerfile
+FROM python:3.10-slim
+ENV PYTHONUNBUFFERED=1
+WORKDIR /code
+# Install Poetry
+RUN apt clean && apt update && apt install curl -y
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
 
-FROM python:3.9-slim
+# Copy poetry.lock* in case it doesn't exist in the repo
+COPY app/pyproject.toml app/poetry.lock* /code/
 
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# Copiar la carpeta app al directorio de trabajo del contenedor
-COPY app /app
-
-RUN pip3 install -r /app/requirements.txt
-
+ENV PYTHONPATH=/code
 EXPOSE 8501
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+ARG INSTALL_DEV=false
+RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; else poetry install --no-root --no-dev ; fi"
 
-ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+ENTRYPOINT ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
