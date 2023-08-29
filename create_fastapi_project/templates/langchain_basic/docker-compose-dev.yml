@@ -10,8 +10,17 @@ services:
       - ./backend/app:/code
     expose:
       - 8000
-    ports:
-      - 8000:8000
+    env_file: ".env"
+
+  streamlit_frontend:
+    container_name: streamlit_frontend
+    build: ./frontend
+    restart: always
+    volumes:
+      - ./frontend/app:/code
+    expose:
+      - 8501
+
     env_file: ".env"
 
   caddy_reverse_proxy:
