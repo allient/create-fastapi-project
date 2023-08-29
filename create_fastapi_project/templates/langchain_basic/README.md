@@ -25,6 +25,10 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 2. Get your API key from [API Key - SerpApi](https://serpapi.com/manage-api-key).
 3. Set your API key as an environment variable named `SERP_API_KEY`.
 
+## Reverse Proxy
+
+This project employs [Caddy](https://caddyserver.com/) as a reverse proxy to efficiently route and manage incoming requests.
+
 ## Getting Started
 
 The commands in this documentation can be customized on the **Makefile**. It can be started with and without docker.
@@ -68,7 +72,28 @@ You can start editing the server by modifying `app/main.py`.
 - Search pokemon by name or id ![pokemon-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746086/Allient/create-fastapi-project/pokemon-tool-demo_ggsc63.gif)
 
 And also includes a agent that uses the tools to answer your questions.
-You can access the agent by opening [http://localhost:8000/chat](http://localhost:8000/chat) with your browser.
+You can access the agent by opening [http://localhost:8000/chat](http://localhost:8000/chat) with your browser or you can use the frontend server.
+
+## Frontend server
+
+This project includes a frontend server that uses [Streamlit](https://streamlit.io/) to display a chatbot that uses the langchain tools to answer your questions.
+
+- Run the frontend server (Recommended using docker):
+
+```bash
+make run-streamlit
+```
+
+Now you can access the frontend server by opening [frontend.localhost](http://frontend.localhost) with your browser.
+
+if you want to run the frontend server without docker, you need to install the dependencies in the frontend folder.
+
+```bash
+cd frontend
+cd app
+poetry install
+streamlit run streamlit_app.py
+```
 
 ## Learn More
 
