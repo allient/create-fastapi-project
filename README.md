@@ -64,6 +64,11 @@ app
     └───test
 ```
 
+## Containers Architecture
+
+![langchain-architecture](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1693340056/Allient/create-fastapi-project/image_2_mraj02.png)
+As this project uses [Caddy](https://caddyserver.com/) as a reverse proxy, which uses namespaces routing, you can access the documentation with the following path [http://fastapi.localhost/docs](http://fastapi.localhost/docs)
+
 ## ENV Variables
 
 ```bash

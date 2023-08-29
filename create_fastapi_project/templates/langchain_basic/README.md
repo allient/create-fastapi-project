@@ -25,9 +25,9 @@ This is a FastAPI project initialized using [`create-fastapi-project`](https://g
 2. Get your API key from [API Key - SerpApi](https://serpapi.com/manage-api-key).
 3. Set your API key as an environment variable named `SERP_API_KEY`.
 
-## Reverse Proxy
+## Containers Architecture
 
-This project employs [Caddy](https://caddyserver.com/) as a reverse proxy to efficiently route and manage incoming requests.
+As this project uses [Caddy](https://caddyserver.com/) as a reverse proxy, which uses namespaces routing, you can access the documentation with the following path [http://fastapi.localhost/docs](http://fastapi.localhost/docs)
 
 ## Getting Started
 
@@ -60,7 +60,7 @@ make install
 make run-app
 ```
 
-Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the result.
+Open [http://fastapi.localhost/docs](http://fastapi.localhost/docs) with your browser to see the result.
 
 You can start editing the server by modifying `app/main.py`.
 
@@ -72,7 +72,7 @@ You can start editing the server by modifying `app/main.py`.
 - Search pokemon by name or id ![pokemon-tool](https://res.cloudinary.com/dnv0qwkrk/image/upload/v1692746086/Allient/create-fastapi-project/pokemon-tool-demo_ggsc63.gif)
 
 And also includes a agent that uses the tools to answer your questions.
-You can access the agent by opening [http://localhost:8000/chat](http://localhost:8000/chat) with your browser or you can use the frontend server.
+You can access the agent by opening [http://fastapi.localhost/chat](http://fastapi.localhost/chat) with your browser or you can use the frontend server.
 
 ## Frontend server
 
