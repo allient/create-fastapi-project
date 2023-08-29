@@ -51,6 +51,9 @@ run-prod:
 stop-prod:
 	docker compose down
 
+run-streamlit:
+	docker compose -f streamlit.yml up --force-recreate
+
 formatter:
 	cd app && \
 	poetry run black app

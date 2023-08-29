@@ -41,6 +41,7 @@ def install_template(root: str, template: ITemplate, app_name: str):
     if template == ITemplate.full or template == ITemplate.langchain_basic:
         # TODO: CHECK PATHS IN MACOS AND WINDOWS | (os.path.join)
         poetry_path = os.path.join(root, "backend", "app")
+        poetry_frontend_path = os.path.join(root, "frontend", "app")
 
     else:
         poetry_path = os.path.join(root, "app")
@@ -66,6 +67,10 @@ def install_template(root: str, template: ITemplate, app_name: str):
                 "openai@^0.27.8",
                 "adaptive-cards-py@^0.0.7",
                 "google-search-results@^2.4.2",
+            ]
+            frontend_dependencies = [
+                "streamlit",
+                "websockets",
             ]
             dependencies[0] = "fastapi[all]@^0.99.1"
             dependencies.extend(langchain_dependencies)
@@ -99,11 +104,8 @@ def install_template(root: str, template: ITemplate, app_name: str):
                 "celery-sqlalchemy-scheduler@^0.3.0",
                 "psycopg2-binary@^2.9.5",
                 "fastapi-limiter@^0.1.5 ",
-                # fastapi-pagination {extras ["sqlalchemy"], version "^0.11.4"},
                 "fastapi-pagination[sqlalchemy]@^0.11.4 ",
-                # fastapi-cache2 {extras ["redis"], version "^0.2.1"},
                 "fastapi-cache2[redis]@^0.2.1 ",
-                # torch [   {url "https://download.pytorch.org/whl/cpu/torch-2.0.0%2Bcpu-cp310-cp310-linux_x86_64.whl", markers "sys_platform 'linux'"},{url "https://download.pytorch.org/whl/cpu/torch-2.0.0%2Bcpu-cp310-cp310-win_amd64.whl", markers "sys_platform 'win32'"}],
             ]
             full_dev_dependencies = [
                 "pytest-asyncio@^0.21.1",
@@ -116,6 +118,14 @@ def install_template(root: str, template: ITemplate, app_name: str):
         install_dependencies(poetry_path, dependencies)
         print("- Installing development packages. This might take a couple of minutes.")
         install_dependencies(poetry_path, dev_dependencies, dev=True)
+
+        if template == ITemplate.langchain_basic:
+            add_configuration_to_pyproject(poetry_frontend_path)
+            print(
+                "- Installing frontend packages. This might take a couple of minutes."
+            )
+            install_dependencies(poetry_frontend_path, frontend_dependencies)
+
         # Set your dynamic environment variables
 
         # Load variables from .env.example

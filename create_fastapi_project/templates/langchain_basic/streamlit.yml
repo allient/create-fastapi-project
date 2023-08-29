@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  streamlit_frontend:
+    container_name: streamlit_frontend
+    build: ./frontend
+    restart: always
+    # command: "sh -c 'streamlit run app.py --server.port 8501'"
+    volumes:
+      - ./frontend:/code
+    expose:
+      - 8501
+    ports:
+      - 8501:8501
+    env_file: ".env"
