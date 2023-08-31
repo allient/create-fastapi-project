@@ -18,7 +18,7 @@ After you that you are going to see an interactive screen like this:
 ### Basic
 
 <details>
-  <summary>Click me</summary>
+  <summary>See More</summary>
   
   We're excited to introduce you to our FastAPI Basic Project Template, carefully designed to jumpstart your FastAPI development journey. This template offers you a pre-configured project with a fundamental FastAPI setup and an organized folder structure, allowing you to hit the ground running.
 
@@ -42,7 +42,7 @@ After you that you are going to see an interactive screen like this:
 ### Langchain Basic
 
 <details>
-  <summary>Click me</summary>
+  <summary>See More</summary>
   
   We're thrilled to introduce you to the LangChain project template, designed to accelerate your development process. This template serves as a solid foundation for your project, complete with essential features and an organized folder structure, all thoughtfully configured and ready for use.
 
@@ -96,7 +96,7 @@ LOCAL_2=127.0.0.1
 ### Full
 
 <details>
-  <summary>Click me</summary>
+  <summary>See More</summary>
   
 This is a project template which uses [FastAPI](https://fastapi.tiangolo.com/), [Alembic](https://alembic.sqlalchemy.org/en/latest/) and async [SQLModel](https://sqlmodel.tiangolo.com/) as ORM. It shows a complete async CRUD template using authentication. Our implementation utilizes the newest version of FastAPI and incorporates typing hints that are fully compatible with **Python 3.10** and later versions. If you're looking to build modern and efficient web applications with Python, this template will provide you with the necessary tools to get started quickly. You can read a short article with the motivations for starting this sample project [here](https://medium.com/allient/our-journey-using-async-fastapi-to-harnessing-the-power-of-modern-web-apis-90301827f14c?source=friends_link&sk=9006b3f2a4137a28a8576a69546c8c18).
 
