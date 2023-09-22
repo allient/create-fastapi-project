@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   fastapi_server:
-    container_name: fastapi_server
+    container_name: ${PROJECT_NAME}_fastapi_server
     build: ./backend
     restart: always
     command: "sh -c 'alembic upgrade head && uvicorn app.main:app --reload --workers 3 --host 0.0.0.0 --port 8000'"
@@ -18,9 +18,9 @@ services:
       - caddy_reverse_proxy:storage.localhost
 
   database:
+    container_name: ${PROJECT_NAME}_database
     image: bitnami/postgresql:13.3.0
-    restart: always
-    container_name: database
+    restart: always    
     env_file: ".env"
     user: root
     volumes:
@@ -37,15 +37,15 @@ services:
       - POSTGRES_HOST_AUTH_METHOD= "trust"
 
   redis_server:
+    container_name: ${PROJECT_NAME}_redis_server
     image: redis:alpine
-    container_name: redis_server    
     restart: always
     expose:
       - 6379
     env_file: .env
 
   celery_worker:
-    container_name: celery_worker
+    container_name: ${PROJECT_NAME}_celery_worker
     restart: always
     # platform: linux/arm64/v8
     build: ./backend
@@ -59,7 +59,7 @@ services:
     env_file: .env
   
   celery_beat:  #Good for crontab and schedule tasks
-    container_name: celery_beat
+    container_name: ${PROJECT_NAME}_celery_beat    
     restart: always
     # platform: linux/arm64/v8
     build:
@@ -76,9 +76,9 @@ services:
     env_file: .env
 
   minio_server:
+    container_name: ${PROJECT_NAME}_minio_server
     image: minio/minio:latest
     restart: always
-    container_name: minio_server
     volumes:
       - ./minio/data:/data
     expose:
@@ -91,7 +91,7 @@ services:
     command: "server /data --console-address ':9090'"    
 
   caddy_reverse_proxy:
-    container_name: caddy_reverse_proxy
+    container_name: ${PROJECT_NAME}_caddy_reverse_proxy
     image: caddy:alpine
     restart: always
     ports:

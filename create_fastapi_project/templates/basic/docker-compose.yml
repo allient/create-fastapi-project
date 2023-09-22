@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   fastapi_server:
+    container_name: ${PROJECT_NAME}_fastapi_server
     build: .
     restart: always
     command: "sh -c 'gunicorn -w 3 -k uvicorn.workers.UvicornWorker app.main:app  --bind 0.0.0.0:8000 --preload --log-level=debug --timeout 120'"

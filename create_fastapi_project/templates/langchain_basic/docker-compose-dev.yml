@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   fastapi_server:
-    container_name: fastapi_server
+    container_name: ${PROJECT_NAME}_fastapi_server
     build: ./backend
     restart: always
     command: "sh -c 'uvicorn app.main:app --reload --workers 3 --host 0.0.0.0 --port 8000'"
@@ -13,7 +13,7 @@ services:
     env_file: ".env"
 
   streamlit_frontend:
-    container_name: streamlit_frontend
+    container_name: ${PROJECT_NAME}_streamlit_frontend
     build: ./frontend
     restart: always
     volumes:
@@ -24,7 +24,7 @@ services:
     env_file: ".env"
 
   caddy_reverse_proxy:
-    container_name: caddy_reverse_proxy
+    container_name: ${PROJECT_NAME}_caddy_reverse_proxy
     image: caddy:alpine
     restart: always
     ports:

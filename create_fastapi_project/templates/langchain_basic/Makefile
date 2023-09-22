@@ -52,21 +52,21 @@ stop-prod:
 	docker compose down
 
 formatter:
-	cd app && \
+	cd backend/app && \
 	poetry run black app
 
 mypy:
-	cd app && \
+	cd backend/app && \
 	poetry run mypy .
 
 lint:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app && poetry run black --check app
 
 lint-watch:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app --watch
 
 lint-fix:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app --fix

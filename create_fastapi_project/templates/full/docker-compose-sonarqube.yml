@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   sonarqube:
-    container_name: "sonarqube"
+    container_name: ${PROJECT_NAME}_sonarqube    
     image: "sonarqube:8.9.10-community"
     volumes:
       - ./sonarqube/extensions:/opt/sonarqube/extensions
