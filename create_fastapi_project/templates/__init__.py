@@ -39,12 +39,11 @@ def install_template(root: str, template: ITemplate, app_name: str):
 
     poetry_path = ""
     if template == ITemplate.full or template == ITemplate.langchain_basic:
-        # TODO: CHECK PATHS IN MACOS AND WINDOWS | (os.path.join)
-        poetry_path = os.path.join(root, "backend", "app")
+        # TODO: CHECK PATHS IN MACOS AND WINDOWS | (os.path.join)        
         poetry_frontend_path = os.path.join(root, "frontend", "app")
 
     else:
-        poetry_path = os.path.join(root, "app")
+        poetry_path = os.path.join(root, "backend", "app")
 
     has_pyproject = add_configuration_to_pyproject(poetry_path)
 

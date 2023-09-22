@@ -48,6 +48,8 @@ make run-dev
 make run-prod
 ```
 
+Open [http://fastapi.localhost/docs](http://fastapi.localhost/docs) with your browser to see the result.
+
 - Run the server without docker:
 
 First, make sure you have all packages installed:
@@ -60,7 +62,7 @@ make install
 make run-app
 ```
 
-Open [http://fastapi.localhost/docs](http://fastapi.localhost/docs) with your browser to see the result.
+Open [http://localhost:8000/docs](http://localhost:8000/docs) with your browser to see the result.
 
 You can start editing the server by modifying `app/main.py`.
 

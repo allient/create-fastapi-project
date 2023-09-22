@@ -30,10 +30,10 @@ help:
 	@echo "        Lint code with ruff and try to fix."	
 	
 install:
-	cd app && poetry install && cd ..
+	cd backend/app && poetry install && cd ..
 
 run-app:
-	cd app && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 && cd ..
+	cd backend/app && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 && cd ..
 
 
 run-dev-build:
@@ -52,21 +52,21 @@ stop-prod:
 	docker compose down
 
 formatter:
-	cd app && \
+	cd backend/app && \
 	poetry run black app
 
 mypy:
-	cd app && \
+	cd backend/app && \
 	poetry run mypy .
 
 lint:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app && poetry run black --check app
 
 lint-watch:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app --watch
 
 lint-fix:
-	cd app && \
+	cd backend/app && \
 	poetry run ruff app --fix

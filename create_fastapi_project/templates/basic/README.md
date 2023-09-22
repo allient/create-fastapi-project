@@ -21,6 +21,9 @@ make run-dev
 make run-prod
 ```
 
+Open [http://fastapi.localhost/docs](http://fastapi.localhost/docs) with your browser to see the result.
+
+
 - Run the server without docker:
 
 First, make sure you have all packages installed:
