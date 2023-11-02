@@ -37,14 +37,11 @@ def install_template(root: str, template: ITemplate, app_name: str):
         dirs_exist_ok=True,
     )
 
-    poetry_path = ""
-    if template == ITemplate.full or template == ITemplate.langchain_basic:
+    poetry_path = os.path.join(root, "backend", "app")
+    if  template == ITemplate.langchain_basic:
         # TODO: CHECK PATHS IN MACOS AND WINDOWS | (os.path.join)        
         poetry_frontend_path = os.path.join(root, "frontend", "app")
-
-    else:
-        poetry_path = os.path.join(root, "backend", "app")
-
+    
     has_pyproject = add_configuration_to_pyproject(poetry_path)
 
     if has_pyproject:
@@ -114,6 +111,8 @@ def install_template(root: str, template: ITemplate, app_name: str):
             dev_dependencies.extend(full_dev_dependencies)
 
         print("- Installing main packages. This might take a couple of minutes.")
+        print("poetry_path", poetry_path)
+        print("template", template)
         install_dependencies(poetry_path, dependencies)
         print("- Installing development packages. This might take a couple of minutes.")
         install_dependencies(poetry_path, dev_dependencies, dev=True)

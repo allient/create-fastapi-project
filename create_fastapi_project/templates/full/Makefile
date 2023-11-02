@@ -60,9 +60,7 @@ help:
 	@echo "        Stops Sonarqube container."
 
 install:
-	cd backend/app && \
-	poetry shell && \
-	poetry install
+	cd backend/app && poetry install && cd ../..
 
 run-dev-build:
 	docker compose -f docker-compose-dev.yml up --build

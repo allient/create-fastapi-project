@@ -30,7 +30,7 @@ help:
 	@echo "        Lint code with ruff and try to fix."	
 	
 install:
-	cd backend/app && poetry install && cd ..
+	cd backend/app && poetry install && cd ../..
 
 run-app:
 	cd backend/app && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 && cd ..
