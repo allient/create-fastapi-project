@@ -47,66 +47,64 @@ def install_template(root: str, template: ITemplate, app_name: str):
     if has_pyproject:
         dependencies = [
             "fastapi[all]",
-            "fastapi-pagination[sqlalchemy]@^0.12.7",
-            "asyncer@^0.0.2",
-            "httpx@^0.24.1",
+            "fastapi-pagination[sqlalchemy]",
+            "asyncer",
+            "httpx",
         ]
         dev_dependencies = [
-            "pytest@^7.4.0",
-            "mypy@^1.5.0",
-            "ruff@^0.0.284",
-            "black@^23.7.0",
+            "pytest",
+            "mypy",
+            "ruff",
+            "black",
         ]
         if template == ITemplate.langchain_basic:
             langchain_dependencies = [
-                "langchain@^0.0.265",
-                "openai@^0.27.8",
-                "adaptive-cards-py@^0.0.7",
-                "google-search-results@^2.4.2",
+                "langchain",
+                "openai",
+                "adaptive-cards-py",
+                "google-search-results",
             ]
             frontend_dependencies = [
                 "streamlit",
                 "websockets",
             ]
-            dependencies[0] = "fastapi[all]@^0.99.1"
             dependencies.extend(langchain_dependencies)
         if template == ITemplate.full:
             full_dependencies = [
-                "alembic@^1.10.2",
-                "asyncpg@^0.27.0",
-                "sqlmodel@^0.0.8",
-                "python-jose@^3.3.0",
-                "cryptography@^38.0.3",
-                "passlib@^1.7.4",
-                "SQLAlchemy-Utils@^0.38.3",
-                "SQLAlchemy@^1.4.40",
-                "minio@^7.1.13",
-                "Pillow@^9.4.0",
-                "watchfiles@^0.18.1",
-                "asyncer@^0.0.2",
-                "httpx@^0.23.1",
-                "pandas@^1.5.3",
-                "openpyxl@^3.0.10",
-                "redis@^4.5.1",
-                "fastapi-async-sqlalchemy@^0.3.12",
-                "oso@^0.26.4",
-                "celery@^5.2.7",
-                "transformers@^4.28.1",
-                "requests@^2.29.0",
-                "wheel@^0.40.0",
-                "setuptools@^67.7.2",
-                "langchain@^0.0.262",
-                "openai@^0.27.5",
-                "celery-sqlalchemy-scheduler@^0.3.0",
-                "psycopg2-binary@^2.9.5",
-                "fastapi-limiter@^0.1.5 ",
-                "fastapi-pagination[sqlalchemy]@^0.11.4 ",
-                "fastapi-cache2[redis]@^0.2.1 ",
+                "alembic",
+                "asyncpg",
+                "sqlmodel",
+                "python-jose",
+                "cryptography",
+                "passlib",
+                "SQLAlchemy-Utils",
+                "SQLAlchemy",
+                "minio",
+                "Pillow",
+                "watchfiles",
+                "asyncer",
+                "httpx",
+                "pandas",
+                "openpyxl",
+                "redis",
+                "fastapi-async-sqlalchemy",
+                "oso",
+                "celery",
+                "transformers",
+                "requests",
+                "wheel",
+                "setuptools",
+                "langchain",
+                "openai",
+                "celery-sqlalchemy-scheduler",
+                "psycopg2-binary",
+                "fastapi-limiter",
+                "fastapi-pagination[sqlalchemy]",
+                "fastapi-cache2[redis]",
             ]
             full_dev_dependencies = [
-                "pytest-asyncio@^0.21.1",
+                "pytest-asyncio",
             ]
-            dependencies[0] = "fastapi[all]@^0.95.2"
             dependencies.extend(full_dependencies)
             dev_dependencies.extend(full_dev_dependencies)
 

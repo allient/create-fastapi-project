@@ -10,7 +10,7 @@ class ModeEnum(str, Enum):
     testing = "testing"
 
 
-class Settings(BaseSettings):
+class Settings(BaseSettings, extra='ignore'):
     PROJECT_NAME: str = "app"
     BACKEND_CORS_ORIGINS: list[str] | list[AnyHttpUrl]
     MODE: ModeEnum = ModeEnum.development
@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     
     class Config:
         case_sensitive = True
-        env_file = os.path.expanduser("~/.env")
+        env_file = os.path.expanduser("../../.env")
 
 
 settings = Settings()
