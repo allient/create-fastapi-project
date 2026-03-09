@@ -2,7 +2,7 @@
 name = "create-fastapi-project"
 version = "0.2.5"
 description = ""
-authors = ["jonra1993 <jvargas@allient.io>"]
+authors = ["vargasjona <jvargas@allient.io>"]
 readme = "README.md"
 packages = [{include = "create_fastapi_project"}]
 
