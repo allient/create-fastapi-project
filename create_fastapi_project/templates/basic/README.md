@@ -45,7 +45,7 @@ You can start editing the server by modifying `app/main.py`.
 To learn more about Fastapi, take a look at the following resources:
 
 - [Fastapi Documentation](https://fastapi.tiangolo.com/).
-- [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async).
+- [fastapi-alembic-sqlmodel-async](https://github.com/vargasjona/fastapi-alembic-sqlmodel-async).
 - [full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql).
 - [sqlmodel-tutorial](https://sqlmodel.tiangolo.com/tutorial/fastapi/).
 - [asyncer-tutorial](https://asyncer.tiangolo.com/tutorial/).
